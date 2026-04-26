@@ -34,7 +34,7 @@
         html {
             scroll-behavior: smooth;
             font-size: 16px;
-            overflow-x: hidden;
+         /*   overflow-x: hidden;*/
             width: 100%;
         }
 
@@ -50,10 +50,137 @@
             -webkit-tap-highlight-color: transparent;
             user-select: none;
             -webkit-user-select: none;
-            /* 移动端优化：明确只允许垂直滚动 */
             touch-action: pan-y;
         }
 
+        /* ========== 开场动画 ========== */
+        .intro-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #fbeece;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+            opacity: 1;
+            visibility: visible;
+            cursor: pointer;
+        }
+
+        .intro-overlay.fade-out {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .intro-icon {
+            font-size: 5rem;
+            animation: introBounce 1.2s ease-in-out infinite;
+            margin-bottom: 20px;
+        }
+
+        @keyframes introBounce {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        .intro-title {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 900;
+            color: #53442d;
+            margin-bottom: 10px;
+            letter-spacing: 0.03em;
+        }
+
+        .intro-subtitle {
+            font-size: 1rem;
+            color: #8f8271;
+            margin-bottom: 30px;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .intro-dots {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .intro-dot {
+            width: 12px;
+            height: 12px;
+            background: #d4c9b6;
+            border-radius: 50%;
+            animation: dotPulse 1.5s ease-in-out infinite;
+        }
+
+        .intro-dot:nth-child(2) {
+            animation-delay: 0.3s;
+        }
+
+        .intro-dot:nth-child(3) {
+            animation-delay: 0.6s;
+        }
+
+        @keyframes dotPulse {
+
+            0%,
+            80%,
+            100% {
+                transform: scale(0.8);
+                opacity: 0.5;
+            }
+
+            40% {
+                transform: scale(1.4);
+                opacity: 1;
+                background: #53442d;
+            }
+        }
+
+        .intro-btn {
+            background: #53442d;
+            color: #fff;
+            border: none;
+            padding: 14px 36px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            letter-spacing: 0.05em;
+            box-shadow: 0 4px 15px rgba(83, 68, 45, 0.15);
+            transition: all 0.3s ease;
+        }
+
+        .intro-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(83, 68, 45, 0.25);
+            background: #3d3222;
+        }
+
+        .intro-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* 主内容初始状态 */
+        .main-content {
+            opacity: 1;
+            transition: opacity 0.8s ease;
+        }
+
+        /* 其他原有样式保持不变 */
         .floating-particles {
             position: fixed;
             top: 0;
@@ -77,16 +204,20 @@
                 transform: translateY(105vh) rotate(0deg) scale(0);
                 opacity: 0;
             }
+
             5% {
                 opacity: 1;
             }
+
             50% {
                 opacity: 0.8;
                 transform: translateY(50vh) rotate(180deg) scale(1.2);
             }
+
             90% {
                 opacity: 0.2;
             }
+
             100% {
                 transform: translateY(-10vh) rotate(360deg) scale(0.3);
                 opacity: 0;
@@ -172,10 +303,12 @@
         }
 
         @keyframes gentleFloat {
+
             0%,
             100% {
                 transform: translateY(0);
             }
+
             50% {
                 transform: translateY(-15px);
             }
@@ -224,11 +357,13 @@
         }
 
         @keyframes sparkleBounce {
+
             0%,
             100% {
                 transform: scale(1) rotate(0deg);
                 opacity: 0.7;
             }
+
             50% {
                 transform: scale(1.5) rotate(20deg);
                 opacity: 1;
@@ -735,6 +870,7 @@
                 transform: scale(0) rotate(-10deg);
                 opacity: 0;
             }
+
             100% {
                 transform: scale(1) rotate(0deg);
                 opacity: 1;
@@ -810,10 +946,12 @@
         }
 
         @keyframes musicPulse {
+
             0%,
             100% {
                 box-shadow: 0 0 0 0 rgba(143, 129, 113, 0.4);
             }
+
             50% {
                 box-shadow: 0 0 0 16px rgba(143, 129, 113, 0);
             }
@@ -979,203 +1117,260 @@
             .slider-controls {
                 gap: 12px;
             }
+
+            .intro-icon {
+                font-size: 3.5rem;
+            }
         }
     </style>
 </head>
 
 <body>
-    <div class="floating-particles" id="particlesContainer"></div>
-    <div class="toast" id="toast"></div>
-
-    <!-- 只保留 BGM 按钮 -->
-    <div class="floating-buttons">
-        <button class="float-btn bgm-btn" id="bgmBtn" title="🎵 背景音乐 开/关">🎵</button>
+    <!-- ========== 开场动画层 ========== -->
+    <div class="intro-overlay" id="introOverlay">
+        <div class="intro-icon">🐣</div>
+        <h2 class="intro-title">欢迎来到我的小窝</h2>
+        <p class="intro-subtitle">正在加载可爱能量…</p>
+        <div class="intro-dots">
+            <div class="intro-dot"></div>
+            <div class="intro-dot"></div>
+            <div class="intro-dot"></div>
+        </div>
+        <button class="intro-btn" id="introEnterBtn">✨ 马上进入 ✨</button>
     </div>
 
-    <!-- Hero -->
-    <section class="section hero-section" id="section1">
-        <div class="hero-avatar-wrapper">
-            <div class="hero-avatar"><img src="https://placehold.co/300x300/fbeec/53442d?text=🐣+Photo" alt="头像"></div>
-            <span class="hero-sparkle">✨</span><span class="hero-sparkle">💫</span><span class="hero-sparkle">🌟</span>
-        </div>
-        <h1 class="hero-title">欢迎来到我的<span class="highlight">可爱小窝</span></h1>
-        <p class="hero-desc">这里住着一只充满好奇心的小生物~ 喜欢收集快乐、分享温暖，快来认识我吧！</p>
-        <button class="hero-cta" onclick="document.getElementById('section2').scrollIntoView({behavior:'smooth'})">💛
-            了解我</button>
-    </section>
-    <div class="section-divider"></div>
+    <!-- 主内容容器 -->
+    <div class="main-content" id="mainContent">
+        <div class="floating-particles" id="particlesContainer"></div>
+        <div class="toast" id="toast"></div>
 
-    <!-- IP档案 -->
-    <section class="section ip-section" id="section2">
-        <span class="section-tag">🌟 关于我</span>
-        <h2 class="section-title">我的IP档案</h2>
-        <p class="section-subtitle">一个温暖可爱的小小角色，希望给你带来好心情~</p>
-        <div class="ip-card">
-            <div class="ip-avatar-large"><img src="https://placehold.co/260x260/fbeec/53442d?text=🐣+IP" alt="IP头像">
-            </div>
-            <div class="ip-info">
-                <div class="ip-name">暖暖 · NuanNuan</div>
-                <div class="ip-role">✨ 治愈系小精灵 | 快乐收集师</div>
-                <div class="ip-tags">
-                    <span class="ip-tag">☀️ 乐观</span><span class="ip-tag">🎨 爱创作</span><span class="ip-tag">🍰
-                        甜品控</span>
-                    <span class="ip-tag">🌈 梦想家</span><span class="ip-tag">🐱 猫奴</span>
+        <!-- 只保留 BGM 按钮 -->
+        <div class="floating-buttons">
+            <button class="float-btn bgm-btn" id="bgmBtn" title="🎵 背景音乐 开/关">🎵</button>
+        </div>
+
+        <!-- Hero -->
+        <section class="section hero-section" id="section1">
+            <div class="hero-avatar-wrapper">
+                <div class="hero-avatar"><img src="https://placehold.co/300x300/fbeec/53442d?text=🐣+Photo" alt="头像">
                 </div>
-                <p class="ip-bio">
-                    哈喽！我是暖暖，一只从云朵上掉下来的小精灵~<br>我喜欢用画笔记录生活中的小确幸，收集世界上所有温暖的笑容。我的使命是让每一个来到这个小窝的人都能感受到一丝甜蜜和治愈！💕</p>
+                <span class="hero-sparkle">✨</span><span class="hero-sparkle">💫</span><span
+                    class="hero-sparkle">🌟</span>
             </div>
-        </div>
-    </section>
-    <div class="section-divider"></div>
+            <h1 class="hero-title">欢迎来到我的<span class="highlight">可爱小窝</span></h1>
+            <p class="hero-desc">这里住着一只充满好奇心的小生物~ 喜欢收集快乐、分享温暖，快来认识我吧！</p>
+            <button class="hero-cta"
+                onclick="document.getElementById('section2').scrollIntoView({behavior:'smooth'})">💛 了解我</button>
+        </section>
+        <div class="section-divider"></div>
 
-    <!-- MBTI -->
-    <section class="section" id="section3">
-        <span class="section-tag">🧠 性格密码</span>
-        <h2 class="section-title">我的 MBTI</h2>
-        <p class="section-subtitle">点击字母看看每个维度的含义吧~</p>
-        <div class="info-card">
-            <img src="https://placehold.co/400x300/fbeec/53442d?text=MBTI+Illustration" alt="MBTI"
-                class="section-illustration" onerror="this.style.display='none'">
-            <div class="mbti-display" id="mbtiDisplay">INFP</div>
-            <div class="mbti-detail">
-                <span class="mbti-letter" data-desc="内向 (Introversion) ：从独处中获得能量，喜欢深度思考。">I</span>
-                <span class="mbti-letter" data-desc="直觉 (Intuition) ：关注可能性和抽象概念，喜欢想象。">N</span>
-                <span class="mbti-letter" data-desc="情感 (Feeling) ：基于价值观和情感做决定，富有同情心。">F</span>
-                <span class="mbti-letter" data-desc="感知 (Perceiving) ：灵活随性，喜欢保持开放的选择。">P</span>
-            </div>
-            <div class="mbti-tooltip" id="mbtiTooltip">👆 点击字母查看解释</div>
-        </div>
-    </section>
-    <div class="section-divider"></div>
-
-    <!-- 留言便签墙 -->
-    <section class="section" id="section4">
-        <span class="section-tag">📝 留言便签</span>
-        <h2 class="section-title">便签留言墙</h2>
-        <p class="section-subtitle">选一个喜欢的颜色，留下你想说的话吧~</p>
-        <div class="sticky-wall">
-            <div class="sticky-input-row">
-                <input type="text" class="sticky-input" id="stickyInput" placeholder="写下你想说的话..." maxlength="60">
-                <div class="sticky-color-picker" id="stickyColorPicker">
-                    <span class="sticky-color-dot active" data-color="#fff8e7" style="background:#fff8e7;"
-                        title="奶油"></span>
-                    <span class="sticky-color-dot" data-color="#dbecf4" style="background:#dbecf4;" title="浅蓝"></span>
-                    <span class="sticky-color-dot" data-color="#fde8c8" style="background:#fde8c8;" title="暖黄"></span>
-                    <span class="sticky-color-dot" data-color="#ffe8e0" style="background:#ffe8e0;" title="粉嫩"></span>
-                    <span class="sticky-color-dot" data-color="#e8f5e0" style="background:#e8f5e0;" title="薄荷"></span>
+        <!-- IP档案 -->
+        <section class="section ip-section" id="section2">
+            <span class="section-tag">🌟 关于我</span>
+            <h2 class="section-title">我的IP档案</h2>
+            <p class="section-subtitle">一个温暖可爱的小小角色，希望给你带来好心情~</p>
+            <div class="ip-card">
+                <div class="ip-avatar-large"><img src="https://placehold.co/260x260/fbeec/53442d?text=🐣+IP" alt="IP头像">
                 </div>
-                <button class="sticky-submit" id="stickySubmit">📌 贴上</button>
-            </div>
-            <div class="sticky-notes-grid" id="stickyNotesGrid">
-                <span class="sticky-empty">还没有便签哦~ 快来贴第一张吧！💌</span>
-            </div>
-        </div>
-    </section>
-    <div class="section-divider"></div>
-
-    <!-- 星座 -->
-    <section class="section" id="section5">
-        <span class="section-tag">🌠 星空物语</span>
-        <h2 class="section-title">我的星座</h2>
-        <p class="section-subtitle">双鱼座 · 2月19日 - 3月20日</p>
-        <div class="info-card">
-            <img src="https://placehold.co/400x300/fbeec/53442d?text=Pisces+Image" alt="双鱼座"
-                class="section-illustration" onerror="this.style.display='none'">
-            <span class="zodiac-icon">♓</span>
-            <div style="font-weight:700; font-size:1.2rem; margin-bottom:8px;">双鱼座 Pisces</div>
-            <p style="color:var(--text-light); margin-bottom:12px;">浪漫、富有想象力、富有同情心，是十二星座中最具梦幻色彩的存在。</p>
-            <div class="zodiac-traits">
-                <span class="zodiac-trait">🌊 敏感</span><span class="zodiac-trait">🎨 艺术</span>
-                <span class="zodiac-trait">💭 爱幻想</span><span class="zodiac-trait">💖 共情力强</span>
-                <span class="zodiac-trait">🌙 浪漫</span>
-            </div>
-        </div>
-    </section>
-    <div class="section-divider"></div>
-
-    <!-- 兴趣爱好轮播 -->
-    <section class="section" id="section6">
-        <span class="section-tag">🎯 兴趣爱好</span>
-        <h2 class="section-title">喜欢做的事</h2>
-        <p class="section-subtitle">滑动查看我的爱好瞬间~</p>
-        <div class="info-card slider-card">
-            <div class="slider-outer">
-                <div class="slider-viewport">
-                    <div class="slider-wrapper" id="hobbyWrapper">
-                        <div class="slider-slide"><img src="https://placehold.co/600x800/fbeec/53442d?text=🎨+Painting"
-                                alt="绘画"><span>🎨 绘画</span></div>
-                        <div class="slider-slide"><img src="https://placehold.co/600x800/fbeec/53442d?text=📚+Reading"
-                                alt="阅读"><span>📚 阅读</span></div>
-                        <div class="slider-slide"><img src="https://placehold.co/600x800/fbeec/53442d?text=🎵+Music"
-                                alt="听音乐"><span>🎵 听音乐</span></div>
-                        <div class="slider-slide"><img src="https://placehold.co/600x800/fbeec/53442d?text=🍰+Baking"
-                                alt="烘焙"><span>🍰 烘焙</span></div>
-                        <div class="slider-slide"><img src="https://placehold.co/600x800/fbeec/53442d?text=🌸+Flowers"
-                                alt="养花"><span>🌸 养花</span></div>
-                        <div class="slider-slide"><img src="https://placehold.co/600x800/fbeec/53442d?text=🐱+Cat"
-                                alt="撸猫"><span>🐱 撸猫</span></div>
-                        <div class="slider-slide"><img src="https://placehold.co/600x800/fbeec/53442d?text=✈️+Travel"
-                                alt="旅行"><span>✈️ 旅行</span></div>
-                        <div class="slider-slide"><img
-                                src="https://placehold.co/600x800/fbeec/53442d?text=📸+Photography" alt="摄影"><span>📸
-                                摄影</span></div>
+                <div class="ip-info">
+                    <div class="ip-name">暖暖 · NuanNuan</div>
+                    <div class="ip-role">✨ 治愈系小精灵 | 快乐收集师</div>
+                    <div class="ip-tags">
+                        <span class="ip-tag">☀️ 乐观</span><span class="ip-tag">🎨 爱创作</span><span class="ip-tag">🍰
+                            甜品控</span>
+                        <span class="ip-tag">🌈 梦想家</span><span class="ip-tag">🐱 猫奴</span>
                     </div>
-                </div>
-                <div class="slider-controls">
-                    <button class="slider-arrow" id="hobbyPrev">❮</button>
-                    <div class="slider-dots" id="hobbyDots"></div>
-                    <button class="slider-arrow" id="hobbyNext">❯</button>
+                    <p class="ip-bio">
+                        哈喽！我是暖暖，一只从云朵上掉下来的小精灵~<br>我喜欢用画笔记录生活中的小确幸，收集世界上所有温暖的笑容。我的使命是让每一个来到这个小窝的人都能感受到一丝甜蜜和治愈！💕</p>
                 </div>
             </div>
-        </div>
-    </section>
-    <div class="section-divider"></div>
+        </section>
+        <div class="section-divider"></div>
 
-    <!-- 技能条 -->
-    <section class="section" id="section7">
-        <span class="section-tag">🛠️ 小小技能</span>
-        <h2 class="section-title">我的能力值</h2>
-        <p class="section-subtitle">一直在努力点亮更多技能树~</p>
-        <div class="info-card">
-            <div class="skill-list">
-                <div class="skill-item">
-                    <div class="skill-label"><span>🎨 插画设计</span><span>85%</span></div>
-                    <div class="skill-bar-bg">
-                        <div class="skill-bar-fill" style="width:0%" data-width="85"></div>
-                    </div>
+        <!-- MBTI -->
+        <section class="section" id="section3">
+            <span class="section-tag">🧠 性格密码</span>
+            <h2 class="section-title">我的 MBTI</h2>
+            <p class="section-subtitle">点击字母看看每个维度的含义吧~</p>
+            <div class="info-card">
+                <img src="https://placehold.co/400x300/fbeec/53442d?text=MBTI+Illustration" alt="MBTI"
+                    class="section-illustration" onerror="this.style.display='none'">
+                <div class="mbti-display" id="mbtiDisplay">INFP</div>
+                <div class="mbti-detail">
+                    <span class="mbti-letter" data-desc="内向 (Introversion) ：从独处中获得能量，喜欢深度思考。">I</span>
+                    <span class="mbti-letter" data-desc="直觉 (Intuition) ：关注可能性和抽象概念，喜欢想象。">N</span>
+                    <span class="mbti-letter" data-desc="情感 (Feeling) ：基于价值观和情感做决定，富有同情心。">F</span>
+                    <span class="mbti-letter" data-desc="感知 (Perceiving) ：灵活随性，喜欢保持开放的选择。">P</span>
                 </div>
-                <div class="skill-item">
-                    <div class="skill-label"><span>✍️ 写作表达</span><span>70%</span></div>
-                    <div class="skill-bar-bg">
-                        <div class="skill-bar-fill" style="width:0%" data-width="70"></div>
+                <div class="mbti-tooltip" id="mbtiTooltip">👆 点击字母查看解释</div>
+            </div>
+        </section>
+        <div class="section-divider"></div>
+
+        <!-- 留言便签墙 -->
+        <section class="section" id="section4">
+            <span class="section-tag">📝 留言便签</span>
+            <h2 class="section-title">便签留言墙</h2>
+            <p class="section-subtitle">选一个喜欢的颜色，留下你想说的话吧~</p>
+            <div class="sticky-wall">
+                <div class="sticky-input-row">
+                    <input type="text" class="sticky-input" id="stickyInput" placeholder="写下你想说的话..." maxlength="60">
+                    <div class="sticky-color-picker" id="stickyColorPicker">
+                        <span class="sticky-color-dot active" data-color="#fff8e7" style="background:#fff8e7;"
+                            title="奶油"></span>
+                        <span class="sticky-color-dot" data-color="#dbecf4" style="background:#dbecf4;"
+                            title="浅蓝"></span>
+                        <span class="sticky-color-dot" data-color="#fde8c8" style="background:#fde8c8;"
+                            title="暖黄"></span>
+                        <span class="sticky-color-dot" data-color="#ffe8e0" style="background:#ffe8e0;"
+                            title="粉嫩"></span>
+                        <span class="sticky-color-dot" data-color="#e8f5e0" style="background:#e8f5e0;"
+                            title="薄荷"></span>
                     </div>
+                    <button class="sticky-submit" id="stickySubmit">📌 贴上</button>
                 </div>
-                <div class="skill-item">
-                    <div class="skill-label"><span>💻 前端开发</span><span>60%</span></div>
-                    <div class="skill-bar-bg">
-                        <div class="skill-bar-fill" style="width:0%" data-width="60"></div>
+                <div class="sticky-notes-grid" id="stickyNotesGrid">
+                    <span class="sticky-empty">还没有便签哦~ 快来贴第一张吧！💌</span>
+                </div>
+            </div>
+        </section>
+        <div class="section-divider"></div>
+
+        <!-- 星座 -->
+        <section class="section" id="section5">
+            <span class="section-tag">🌠 星空物语</span>
+            <h2 class="section-title">我的星座</h2>
+            <p class="section-subtitle">双鱼座 · 2月19日 - 3月20日</p>
+            <div class="info-card">
+                <img src="https://placehold.co/400x300/fbeec/53442d?text=Pisces+Image" alt="双鱼座"
+                    class="section-illustration" onerror="this.style.display='none'">
+                <span class="zodiac-icon">♓</span>
+                <div style="font-weight:700; font-size:1.2rem; margin-bottom:8px;">双鱼座 Pisces</div>
+                <p style="color:var(--text-light); margin-bottom:12px;">浪漫、富有想象力、富有同情心，是十二星座中最具梦幻色彩的存在。</p>
+                <div class="zodiac-traits">
+                    <span class="zodiac-trait">🌊 敏感</span><span class="zodiac-trait">🎨 艺术</span>
+                    <span class="zodiac-trait">💭 爱幻想</span><span class="zodiac-trait">💖 共情力强</span>
+                    <span class="zodiac-trait">🌙 浪漫</span>
+                </div>
+            </div>
+        </section>
+        <div class="section-divider"></div>
+
+        <!-- 兴趣爱好轮播 -->
+        <section class="section" id="section6">
+            <span class="section-tag">🎯 兴趣爱好</span>
+            <h2 class="section-title">喜欢做的事</h2>
+            <p class="section-subtitle">滑动查看我的爱好瞬间~</p>
+            <div class="info-card slider-card">
+                <div class="slider-outer">
+                    <div class="slider-viewport">
+                        <div class="slider-wrapper" id="hobbyWrapper">
+                            <div class="slider-slide"><img
+                                    src="https://placehold.co/600x800/fbeec/53442d?text=🎨+Painting" alt="绘画"><span>🎨
+                                    绘画</span></div>
+                            <div class="slider-slide"><img
+                                    src="https://placehold.co/600x800/fbeec/53442d?text=📚+Reading" alt="阅读"><span>📚
+                                    阅读</span></div>
+                            <div class="slider-slide"><img src="https://placehold.co/600x800/fbeec/53442d?text=🎵+Music"
+                                    alt="听音乐"><span>🎵 听音乐</span></div>
+                            <div class="slider-slide"><img
+                                    src="https://placehold.co/600x800/fbeec/53442d?text=🍰+Baking" alt="烘焙"><span>🍰
+                                    烘焙</span></div>
+                            <div class="slider-slide"><img
+                                    src="https://placehold.co/600x800/fbeec/53442d?text=🌸+Flowers" alt="养花"><span>🌸
+                                    养花</span></div>
+                            <div class="slider-slide"><img src="https://placehold.co/600x800/fbeec/53442d?text=🐱+Cat"
+                                    alt="撸猫"><span>🐱 撸猫</span></div>
+                            <div class="slider-slide"><img
+                                    src="https://placehold.co/600x800/fbeec/53442d?text=✈️+Travel" alt="旅行"><span>✈️
+                                    旅行</span></div>
+                            <div class="slider-slide"><img
+                                    src="https://placehold.co/600x800/fbeec/53442d?text=📸+Photography"
+                                    alt="摄影"><span>📸 摄影</span></div>
+                        </div>
                     </div>
-                </div>
-                <div class="skill-item">
-                    <div class="skill-label"><span>🗣️ 沟通交流</span><span>75%</span></div>
-                    <div class="skill-bar-bg">
-                        <div class="skill-bar-fill" style="width:0%" data-width="75"></div>
-                    </div>
-                </div>
-                <div class="skill-item">
-                    <div class="skill-label"><span>🧘 冥想专注</span><span>80%</span></div>
-                    <div class="skill-bar-bg">
-                        <div class="skill-bar-fill" style="width:0%" data-width="80"></div>
+                    <div class="slider-controls">
+                        <button class="slider-arrow" id="hobbyPrev">❮</button>
+                        <div class="slider-dots" id="hobbyDots"></div>
+                        <button class="slider-arrow" id="hobbyNext">❯</button>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-    <!-- 已删除 Section 8 照片墙 --->
+        </section>
+        <div class="section-divider"></div>
+
+        <!-- 技能条 -->
+        <section class="section" id="section7">
+            <span class="section-tag">🛠️ 小小技能</span>
+            <h2 class="section-title">我的能力值</h2>
+            <p class="section-subtitle">一直在努力点亮更多技能树~</p>
+            <div class="info-card">
+                <div class="skill-list">
+                    <div class="skill-item">
+                        <div class="skill-label"><span>🎨 插画设计</span><span>85%</span></div>
+                        <div class="skill-bar-bg">
+                            <div class="skill-bar-fill" style="width:0%" data-width="85"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-label"><span>✍️ 写作表达</span><span>70%</span></div>
+                        <div class="skill-bar-bg">
+                            <div class="skill-bar-fill" style="width:0%" data-width="70"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-label"><span>💻 前端开发</span><span>60%</span></div>
+                        <div class="skill-bar-bg">
+                            <div class="skill-bar-fill" style="width:0%" data-width="60"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-label"><span>🗣️ 沟通交流</span><span>75%</span></div>
+                        <div class="skill-bar-bg">
+                            <div class="skill-bar-fill" style="width:0%" data-width="75"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-label"><span>🧘 冥想专注</span><span>80%</span></div>
+                        <div class="skill-bar-bg">
+                            <div class="skill-bar-fill" style="width:0%" data-width="80"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
 
     <script>
         (function () {
-            // 页面动画
+            // ========== 开场动画逻辑 ==========
+            const introOverlay = document.getElementById('introOverlay');
+            const enterBtn = document.getElementById('introEnterBtn');
+
+            function closeIntro() {
+                introOverlay.classList.add('fade-out');
+                // 移除元素以防阻挡交互
+                setTimeout(() => {
+                    if (introOverlay.parentNode) {
+                        introOverlay.remove();
+                    }
+                }, 800);
+            }
+
+            // 点击“进入”按钮
+            enterBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                closeIntro();
+            });
+
+            // 点击任意位置也可进入
+            introOverlay.addEventListener('click', closeIntro);
+
+            // 3.5秒后自动进入
+            setTimeout(closeIntro, 3500);
+
+
+            // ========== 以下是原有 JS 逻辑（保持不变） ==========
             const allSections = document.querySelectorAll('.section');
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
@@ -1312,7 +1507,7 @@
                 });
             });
 
-            // 爱好轮播 (已优化触摸滑动)
+            // 爱好轮播
             const wrapper = document.getElementById('hobbyWrapper');
             const slides = wrapper.querySelectorAll('.slider-slide');
             const prevBtn = document.getElementById('hobbyPrev');
@@ -1344,18 +1539,15 @@
 
             let autoPlay = setInterval(() => goToSlide(currentIndex + 1), 5000);
             let touchStartX = 0;
-
             wrapper.addEventListener('touchstart', e => {
                 touchStartX = e.changedTouches[0].screenX;
                 clearInterval(autoPlay);
             }, { passive: true });
-
             wrapper.addEventListener('touchend', e => {
                 const diff = touchStartX - e.changedTouches[0].screenX;
                 if (Math.abs(diff) > 40) diff > 0 ? goToSlide(currentIndex + 1) : goToSlide(currentIndex - 1);
                 autoPlay = setInterval(() => goToSlide(currentIndex + 1), 5000);
             }, { passive: true });
-
             const viewport = wrapper.parentElement;
             viewport.addEventListener('mouseenter', () => clearInterval(autoPlay));
             viewport.addEventListener('mouseleave', () => {
@@ -1373,7 +1565,6 @@
             }, { threshold: 0.3 });
             document.querySelectorAll('.skill-list').forEach(l => skillObserver.observe(l));
 
-            // 键盘快捷键
             document.addEventListener('keydown', e => {
                 if (e.key === 'm' && e.ctrlKey) { e.preventDefault(); bgmBtn.click(); }
             });
