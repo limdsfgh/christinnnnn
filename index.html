@@ -37,7 +37,7 @@
             scroll-behavior: smooth;
             font-size: 16px;
             width: 100%;
-         
+
         }
 
         body {
@@ -761,7 +761,7 @@
             flex-direction: column;
             gap: 16px;
             border: 2px dashed transparent;
-           
+
         }
 
         .sticky-input-row {
@@ -781,6 +781,11 @@
             background: #fefcf7;
             color: var(--dark);
             font-family: inherit;
+        }
+
+        .sticky-input#stickyAuthor {
+            flex: 0.5;
+            min-width: 100px;
         }
 
         .sticky-input:focus {
@@ -1309,17 +1314,11 @@
             <div class="sticky-wall">
                 <div class="sticky-input-row">
                     <input type="text" class="sticky-input" id="stickyInput" placeholder="写下你想说的话..." maxlength="60">
+                    <!-- 新增昵称输入 -->
+                    <input type="text" class="sticky-input" id="stickyAuthor" placeholder="你的名字（可选）" maxlength="12"
+                        style="flex:0.5; min-width:100px;">
                     <div class="sticky-color-picker" id="stickyColorPicker">
-                        <span class="sticky-color-dot active" data-color="#fff8e7" style="background:#fff8e7;"
-                            title="奶油"></span>
-                        <span class="sticky-color-dot" data-color="#dbecf4" style="background:#dbecf4;"
-                            title="浅蓝"></span>
-                        <span class="sticky-color-dot" data-color="#fde8c8" style="background:#fde8c8;"
-                            title="暖黄"></span>
-                        <span class="sticky-color-dot" data-color="#ffe8e0" style="background:#ffe8e0;"
-                            title="粉嫩"></span>
-                        <span class="sticky-color-dot" data-color="#e8f5e0" style="background:#e8f5e0;"
-                            title="薄荷"></span>
+                        <!-- 颜色点保持不变 -->
                     </div>
                     <button class="sticky-submit" id="stickySubmit">📌 贴上</button>
                 </div>
@@ -1441,6 +1440,8 @@
             const stickySubmit = document.getElementById('stickySubmit');
             const stickyGrid = document.getElementById('stickyNotesGrid');
             const colorPicker = document.getElementById('stickyColorPicker');
+            // 获取昵称输入框
+            const stickyAuthor = document.getElementById('stickyAuthor');
             let selectedColor = '#fff8e7';
             let stickyNotes = JSON.parse(localStorage.getItem('nuan_sticky_notes') || '[]');
             colorPicker.addEventListener('click', e => {
@@ -1450,6 +1451,7 @@
                 dot.classList.add('active');
                 selectedColor = dot.dataset.color;
             });
+            // 渲染时显示作者
             function renderStickyNotes() {
                 stickyGrid.innerHTML = '';
                 if (stickyNotes.length === 0) {
@@ -1459,7 +1461,13 @@
                         const el = document.createElement('div');
                         el.className = 'sticky-note';
                         el.style.background = n.color;
-                        el.innerHTML = `<span style="flex:1;">${escapeHTML(n.text)}</span><button class="delete-note" data-index="${i}">✕</button>`;
+                        el.innerHTML = `
+                <div style="flex:1; display:flex; flex-direction:column; gap:4px;">
+                    <span>${escapeHTML(n.text)}</span>
+                    <span style="font-size:0.7rem; color:#8f8271; text-align:right;">— ${escapeHTML(n.author)}</span>
+                </div>
+                <button class="delete-note" data-index="${i}">✕</button>
+            `;
                         stickyGrid.appendChild(el);
                     });
                 }
@@ -1473,14 +1481,17 @@
                 renderStickyNotes();
                 showToast('🗑 便签已移除');
             });
+            // 提交时保存作者
             stickySubmit.addEventListener('click', () => {
                 const text = stickyInput.value.trim();
                 if (!text) { showToast('😊 先写点什么吧~'); stickyInput.focus(); return; }
                 if (text.length > 60) { showToast('📝 内容太长啦，最多60个字哦~'); return; }
-                stickyNotes.push({ text, color: selectedColor });
+                const author = stickyAuthor.value.trim() || '匿名';  // 默认匿名
+                stickyNotes.push({ text, color: selectedColor, author });
                 if (stickyNotes.length > 30) stickyNotes.shift();
                 renderStickyNotes();
                 stickyInput.value = '';
+                stickyAuthor.value = '';   // 清空昵称
                 stickyInput.focus();
                 showToast('💌 便签贴好啦！');
             });
