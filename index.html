@@ -37,7 +37,7 @@
             scroll-behavior: smooth;
             font-size: 16px;
             width: 100%;
-           /* overflow-x: hidden;*/
+         
         }
 
         body {
@@ -47,7 +47,7 @@
             overflow-x: hidden;
             width: 100%;
             position: relative;
-            cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'><circle cx='10' cy='10' r='8' fill='none' stroke='%238f8271' stroke-width='2' opacity='0.6'/></svg>") 10 10, auto;
+            cursor: url("data:image/svg+xml,...") 10 10, auto;
             -webkit-tap-highlight-color: transparent;
             user-select: none;
             -webkit-user-select: none;
@@ -59,13 +59,14 @@
             font-family: 'ZCOOL KuaiLe', cursive;
         }
 
+        /* 移动设备禁用自定义光标 */
         @media (pointer: coarse) {
             body {
                 cursor: auto !important;
             }
         }
 
-        /* ========== 开场动画 ========== */
+        /* 开场动画 */
         .intro-overlay {
             position: fixed;
             top: 0;
@@ -113,7 +114,6 @@
             font-weight: 900;
             color: #53442d;
             margin-bottom: 10px;
-            letter-spacing: 0.03em;
         }
 
         .intro-subtitle {
@@ -171,7 +171,6 @@
             font-size: 1.1rem;
             font-weight: 700;
             cursor: pointer;
-            letter-spacing: 0.05em;
             box-shadow: 0 4px 15px rgba(83, 68, 45, 0.15);
             transition: all 0.3s ease;
         }
@@ -264,7 +263,6 @@
             font-weight: 700;
             padding: 6px 16px;
             border-radius: 50px;
-            letter-spacing: 0.05em;
             margin-bottom: 10px;
         }
 
@@ -274,7 +272,6 @@
             color: var(--dark);
             text-align: center;
             margin-bottom: 8px;
-            letter-spacing: 0.02em;
             position: relative;
             display: inline-block;
         }
@@ -386,7 +383,6 @@
             font-size: clamp(2rem, 5vw, 3.5rem);
             font-weight: 900;
             color: var(--dark);
-            letter-spacing: 0.03em;
             margin-bottom: 8px;
         }
 
@@ -414,7 +410,6 @@
             cursor: pointer;
             transition: var(--transition);
             border: none;
-            letter-spacing: 0.04em;
             box-shadow: var(--shadow-soft);
             text-decoration: none;
         }
@@ -423,10 +418,6 @@
             transform: translateY(-3px);
             box-shadow: var(--shadow-hover);
             background: #3d3222;
-        }
-
-        .hero-cta:active {
-            transform: scale(0.95);
         }
 
         /* IP档案 */
@@ -653,7 +644,7 @@
         .slider-slide img {
             width: 100%;
             height: auto;
-            aspect-ratio: 3 / 4;
+            aspect-ratio: 3/4;
             object-fit: cover;
             border-radius: var(--radius-sm);
             background: #f0e8d9;
@@ -770,10 +761,9 @@
             flex-direction: column;
             gap: 16px;
             border: 2px dashed transparent;
-         
+           
         }
 
-      
         .sticky-input-row {
             display: flex;
             gap: 10px;
@@ -900,7 +890,7 @@
             padding: 10px;
         }
 
-        /* 浮动按钮 - 只保留 BGM 按钮，位于右上角 */
+        /* 浮动BGM按钮 */
         .floating-buttons {
             position: fixed;
             top: 20px;
@@ -927,7 +917,6 @@
             background: var(--white);
             color: var(--dark);
             position: relative;
-            flex-shrink: 0;
             touch-action: manipulation;
             -webkit-tap-highlight-color: transparent;
         }
@@ -990,7 +979,7 @@
         }
 
         /* 响应式 */
-        @media (max-width: 900px) {
+        @media (max-width:900px) {
             html {
                 font-size: 15px;
             }
@@ -1036,7 +1025,7 @@
             }
         }
 
-        @media (max-width: 600px) {
+        @media (max-width:600px) {
             html {
                 font-size: 14px;
             }
@@ -1129,6 +1118,9 @@
 </head>
 
 <body>
+    <!-- 隐藏的音频元素 -->
+    <audio id="bgmAudio" src="BGM.mp3" preload="auto" loop></audio>
+
     <!-- 开场动画 -->
     <div class="intro-overlay" id="introOverlay">
         <div class="intro-icon">🐋</div>
@@ -1345,17 +1337,15 @@
             const enterBtn = document.getElementById('introEnterBtn');
             function closeIntro() {
                 introOverlay.classList.add('fade-out');
-                setTimeout(() => {
-                    if (introOverlay.parentNode) introOverlay.remove();
-                }, 800);
+                setTimeout(() => introOverlay.remove(), 800);
             }
             enterBtn.addEventListener('click', (e) => { e.stopPropagation(); closeIntro(); });
             introOverlay.addEventListener('click', closeIntro);
             setTimeout(closeIntro, 3500);
 
-            // 滚动动画
+            // 滚动出现动画
             const allSections = document.querySelectorAll('.section');
-            const observer = new IntersectionObserver((entries) => {
+            const observer = new IntersectionObserver(entries => {
                 entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
             }, { threshold: 0.12 });
             allSections.forEach(s => observer.observe(s));
@@ -1393,64 +1383,64 @@
             for (let i = 0; i < 14; i++) setTimeout(createParticle, i * 400);
             setInterval(() => { if (pc.children.length < 20) createParticle(); }, 2500);
 
-            // BGM
+            // ========== 音乐控制（使用HTML Audio） ==========
             const bgmBtn = document.getElementById('bgmBtn');
-            let audioCtx = null, bgmPlaying = false, bgmSource = null, bgmBuffer = null;
-            const bgmSrc = 'BGM.mp3';
+            const bgmAudio = document.getElementById('bgmAudio');
+            const loopStart = 69; // 从1分09秒开始循环（单位：秒）
 
-            async function loadAudioBuffer() {
-                const response = await fetch(bgmSrc);
-                const arrayBuffer = await response.arrayBuffer();
-                return await audioCtx.decodeAudioData(arrayBuffer);
+            // 移除默认loop属性，使用自定义循环区间
+            bgmAudio.loop = false;
+
+            // 当音乐播放结束时，跳回loopStart继续播放
+            bgmAudio.addEventListener('ended', () => {
+                bgmAudio.currentTime = loopStart;
+                bgmAudio.play().catch(() => { });
+            });
+
+            // 手动跳转：如果当前播放位置超过歌曲长度-0.2秒，也视为结束（保险）
+            bgmAudio.addEventListener('timeupdate', () => {
+                if (bgmAudio.currentTime >= bgmAudio.duration - 0.2) {
+                    bgmAudio.currentTime = loopStart;
+                    bgmAudio.play().catch(() => { });
+                }
+            });
+
+            function playBGM() {
+                // 从loopStart开始播放
+                bgmAudio.currentTime = loopStart;
+                bgmAudio.play().then(() => {
+                    bgmPlaying = true;
+                    bgmBtn.classList.add('playing');
+                    bgmBtn.innerHTML = '🎵';
+                    showToast('🎵 BGM 开启啦~');
+                }).catch(err => {
+                    showToast('❌ 播放失败，请手动点击播放');
+                });
             }
 
-            async function startBGM() {
-                if (!audioCtx) {
-                    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                }
-                if (audioCtx.state === 'suspended') await audioCtx.resume();
-                if (!bgmBuffer) {
-                    try {
-                        bgmBuffer = await loadAudioBuffer();
-                    } catch (e) {
-                        showToast('❌ 音乐加载失败');
-                        return;
-                    }
-                }
-                if (bgmPlaying) return;
-                const source = audioCtx.createBufferSource();
-                source.buffer = bgmBuffer;
-                source.loop = true;
-                source.loopStart = 69; // 1分9秒开始循环
-                source.loopEnd = bgmBuffer.duration;
-                source.connect(audioCtx.destination);
-                source.start(0, 69);
-                bgmSource = source;
-                bgmPlaying = true;
-                bgmBtn.classList.add('playing');
-                bgmBtn.innerHTML = '🎵';
-                showToast('🎵 BGM 开启啦~');
-            }
-
-            function stopBGM() {
-                if (!bgmPlaying) return;
-                if (bgmSource) {
-                    try { bgmSource.stop(); } catch (e) { }
-                    bgmSource = null;
-                }
+            function pauseBGM() {
+                bgmAudio.pause();
                 bgmPlaying = false;
                 bgmBtn.classList.remove('playing');
                 bgmBtn.innerHTML = '🎵';
                 showToast('🔇 BGM 已关闭');
             }
 
-            bgmBtn.addEventListener('click', () => bgmPlaying ? stopBGM() : startBGM());
+            let bgmPlaying = false;
+
+            bgmBtn.addEventListener('click', () => {
+                if (bgmPlaying) {
+                    pauseBGM();
+                } else {
+                    playBGM();
+                }
+            });
 
             // 便签墙
-            const stickyInput = document.getElementById('stickyInput'),
-                stickySubmit = document.getElementById('stickySubmit'),
-                stickyGrid = document.getElementById('stickyNotesGrid'),
-                colorPicker = document.getElementById('stickyColorPicker');
+            const stickyInput = document.getElementById('stickyInput');
+            const stickySubmit = document.getElementById('stickySubmit');
+            const stickyGrid = document.getElementById('stickyNotesGrid');
+            const colorPicker = document.getElementById('stickyColorPicker');
             let selectedColor = '#fff8e7';
             let stickyNotes = JSON.parse(localStorage.getItem('nuan_sticky_notes') || '[]');
             colorPicker.addEventListener('click', e => {
@@ -1545,10 +1535,10 @@
             });
 
             // 技能条动画
-            const skillObserver = new IntersectionObserver((entries) => {
+            const skillObserver = new IntersectionObserver(entries => {
                 entries.forEach(e => {
                     if (e.isIntersecting) {
-                        e.target.querySelectorAll('.skill-bar-fill').forEach(b => { b.style.width = b.dataset.width + '%'; });
+                        e.target.querySelectorAll('.skill-bar-fill').forEach(b => b.style.width = b.dataset.width + '%');
                     }
                 });
             }, { threshold: 0.3 });
