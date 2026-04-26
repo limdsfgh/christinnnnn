@@ -29,13 +29,14 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-           
         }
 
         html {
             scroll-behavior: smooth;
             font-size: 16px;
-            
+            /* 关键：防止横向溢出 */
+            overflow-x: hidden;
+            width: 100%;
         }
 
         body {
@@ -43,7 +44,10 @@
             background-color: var(--bg);
             color: var(--text);
             line-height: 1.7;
+            /* 同样防止body自身溢出 */
             overflow-x: hidden;
+            width: 100%;
+            position: relative;
             cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'><circle cx='10' cy='10' r='8' fill='none' stroke='%238f8271' stroke-width='2' opacity='0.6'/></svg>") 10 10, auto;
             -webkit-tap-highlight-color: transparent;
             user-select: none;
@@ -106,6 +110,8 @@
             opacity: 0;
             transform: translateY(40px);
             transition: opacity 0.7s ease, transform 0.7s ease;
+            /* 确保section不超出父容器 */
+            width: 100%;
         }
 
         .section.visible {
@@ -157,7 +163,6 @@
             max-width: 500px;
         }
 
-        /* Hero */
         .hero-section {
             padding-top: 80px;
             padding-bottom: 40px;
@@ -286,7 +291,6 @@
             transform: scale(0.95);
         }
 
-        /* IP档案 */
         .ip-section .ip-card {
             background: var(--white);
             border-radius: var(--radius-lg);
@@ -383,7 +387,6 @@
             line-height: 1.6;
         }
 
-        /* 通用卡片 */
         .info-card {
             background: var(--white);
             border-radius: var(--radius-lg);
@@ -400,7 +403,6 @@
             transform: translateY(-2px);
         }
 
-        /* 插图图片 */
         .section-illustration {
             width: 100%;
             max-width: 380px;
@@ -414,7 +416,6 @@
             background: #f0e8d9;
         }
 
-        /* MBTI */
         .mbti-display {
             font-size: clamp(2.5rem, 6vw, 4rem);
             font-weight: 900;
@@ -464,7 +465,6 @@
             min-height: 24px;
         }
 
-        /* 星座 */
         .zodiac-icon {
             font-size: 4rem;
             display: block;
@@ -495,7 +495,6 @@
             transform: translateY(-2px);
         }
 
-        /* 爱好 Slider */
         .slider-card {
             padding: 20px 24px 24px;
         }
@@ -518,7 +517,6 @@
         .slider-wrapper {
             display: flex;
             transition: transform 0.5s ease;
-            align-items: stretch;
         }
 
         .slider-slide {
@@ -569,8 +567,6 @@
             color: var(--dark);
             box-shadow: var(--shadow-soft);
             transition: var(--transition);
-            line-height: 1;
-            flex-shrink: 0;
         }
 
         .slider-arrow:hover {
@@ -596,7 +592,6 @@
             border: none;
             cursor: pointer;
             transition: var(--transition);
-            padding: 0;
         }
 
         .slider-dot.active {
@@ -604,7 +599,6 @@
             transform: scale(1.4);
         }
 
-        /* 技能条 */
         .skill-list {
             display: flex;
             flex-direction: column;
@@ -642,7 +636,6 @@
             transition: width 1s ease;
         }
 
-        /* 照片墙 */
         .photo-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
@@ -665,7 +658,6 @@
             box-shadow: var(--shadow-hover);
         }
 
-        /* 便签墙 */
         .sticky-wall {
             width: 100%;
             max-width: 750px;
@@ -716,7 +708,6 @@
             cursor: pointer;
             border: 2px solid transparent;
             transition: var(--transition);
-            flex-shrink: 0;
         }
 
         .sticky-color-dot:hover,
@@ -742,10 +733,6 @@
         .sticky-submit:hover {
             background: #3d3222;
             transform: translateY(-2px);
-        }
-
-        .sticky-submit:active {
-            transform: scale(0.93);
         }
 
         .sticky-notes-grid {
@@ -793,7 +780,6 @@
             background: none;
             border: none;
             color: var(--dark);
-            padding: 0;
         }
 
         .sticky-note .delete-note:hover {
@@ -810,15 +796,19 @@
             padding: 10px;
         }
 
-        /* 浮动按钮 */
+        /* ===== 修复后的浮动按钮 ===== */
         .floating-buttons {
             position: fixed;
-            bottom: 24px;
-            right: 20px;
+            bottom: 20px;
+            /* 使用动态计算右侧距离，确保不超出视口 */
+            right: calc(20px + max(0px, (100vw - 100%) / 2));
             z-index: 100;
             display: flex;
             flex-direction: column;
             gap: 10px;
+            /* 防止按钮自己产生溢出 */
+            width: auto;
+            max-width: calc(100vw - 40px);
         }
 
         .float-btn {
@@ -835,6 +825,8 @@
             justify-content: center;
             background: var(--white);
             color: var(--dark);
+            position: relative;
+            flex-shrink: 0;
         }
 
         .float-btn:hover {
@@ -892,10 +884,9 @@
 
         .toast.show {
             opacity: 1;
-            transform: translateX(-50%) translateY(5px);
         }
 
-        /* ============ 响应式设计 ============ */
+        /* 响应式 */
         @media (max-width: 900px) {
             html {
                 font-size: 15px;
@@ -919,9 +910,9 @@
             }
 
             .floating-buttons {
-                bottom: 20px;
-                right: 16px;
-                gap: 10px;
+                bottom: 16px;
+                right: calc(16px + max(0px, (100vw - 100%) / 2));
+                gap: 8px;
             }
 
             .float-btn {
@@ -957,7 +948,6 @@
                 height: 85px;
             }
 
-            /* IP 区域：照片在上，文字在下 */
             .ip-section .ip-card {
                 flex-direction: column;
                 text-align: center;
@@ -982,16 +972,17 @@
                 padding: 10px 12px;
             }
 
+            /* 移动端浮动按钮更小，距离更近 */
+            .floating-buttons {
+                top: 10px;
+                right: calc(10px + max(0px, (100vw - 100%) / 2));
+                gap: 6px;
+            }
+
             .float-btn {
                 width: 38px;
                 height: 38px;
                 font-size: 1rem;
-            }
-
-            .floating-buttons {
-                top: 5%;
-                right: 3%;
-                gap: 6px;
             }
 
             .section-illustration {
@@ -1007,7 +998,6 @@
                 grid-template-columns: repeat(2, 1fr);
             }
 
-            /* Slider 缩小 */
             .slider-arrow {
                 width: 36px;
                 height: 36px;
