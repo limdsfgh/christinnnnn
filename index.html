@@ -36,12 +36,11 @@
         html {
             scroll-behavior: smooth;
             font-size: 16px;
-            /*   overflow-x: hidden;*/
             width: 100%;
+           /* overflow-x: hidden;*/
         }
 
         body {
-            /* font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', 'Hiragino Sans GB', sans-serif;*/
             background-color: var(--bg);
             color: var(--text);
             line-height: 1.7;
@@ -53,14 +52,17 @@
             user-select: none;
             -webkit-user-select: none;
             touch-action: pan-y;
-        }
-
-        body {
             font-family: 'ZCOOL KuaiLe', cursive;
         }
 
         button {
             font-family: 'ZCOOL KuaiLe', cursive;
+        }
+
+        @media (pointer: coarse) {
+            body {
+                cursor: auto !important;
+            }
         }
 
         /* ========== 开场动画 ========== */
@@ -184,13 +186,12 @@
             transform: scale(0.95);
         }
 
-        /* 主内容初始状态 */
+        /* 主内容 */
         .main-content {
             opacity: 1;
             transition: opacity 0.8s ease;
         }
 
-        /* 其他原有样式保持不变 */
         .floating-particles {
             position: fixed;
             top: 0;
@@ -299,6 +300,7 @@
             max-width: 500px;
         }
 
+        /* Hero */
         .hero-section {
             padding-top: 80px;
             padding-bottom: 40px;
@@ -427,6 +429,7 @@
             transform: scale(0.95);
         }
 
+        /* IP档案 */
         .ip-section .ip-card {
             background: var(--white);
             border-radius: var(--radius-lg);
@@ -523,6 +526,7 @@
             line-height: 1.6;
         }
 
+        /* 通用卡片 */
         .info-card {
             background: var(--white);
             border-radius: var(--radius-lg);
@@ -557,14 +561,11 @@
         .mbti-photo {
             width: 100%;
             max-width: 240px;
-            /* 从原来的380px缩小到240px */
             height: auto;
             margin: 0 auto 16px;
             display: block;
             object-fit: contain;
-            /* 完整显示，不裁剪 */
             background: transparent;
-            /* 移除原有背景色 */
         }
 
         .mbti-display {
@@ -575,7 +576,6 @@
             display: inline-block;
             padding: 12px 30px;
             border-radius: 60px;
-            /* margin: 16px 0;*/
             cursor: pointer;
             transition: var(--transition);
             box-shadow: var(--shadow-soft);
@@ -584,7 +584,6 @@
         .mbti-display:hover {
             transform: scale(1.05);
         }
-
 
         .zodiac-icon {
             font-size: 4rem;
@@ -616,6 +615,7 @@
             transform: translateY(-2px);
         }
 
+        /* 爱好轮播 */
         .slider-card {
             padding: 20px 24px 24px;
         }
@@ -720,6 +720,7 @@
             transform: scale(1.4);
         }
 
+        /* 技能条 */
         .skill-list {
             display: flex;
             flex-direction: column;
@@ -757,6 +758,7 @@
             transition: width 1s ease;
         }
 
+        /* 便签墙 */
         .sticky-wall {
             width: 100%;
             max-width: 750px;
@@ -767,11 +769,11 @@
             display: flex;
             flex-direction: column;
             gap: 16px;
-
+            border: 2px dashed transparent;
+         
         }
 
-
-
+      
         .sticky-input-row {
             display: flex;
             gap: 10px;
@@ -898,17 +900,16 @@
             padding: 10px;
         }
 
-        /* 浮动按钮 - 只保留 BGM 按钮 */
+        /* 浮动按钮 - 只保留 BGM 按钮，位于右上角 */
         .floating-buttons {
             position: fixed;
-            bottom: 20px;
-            right: calc(20px + max(0px, (100vw - 100%) / 2));
-            z-index: 100;
+            top: 20px;
+            right: 20px;
+            z-index: 999;
             display: flex;
             flex-direction: column;
             gap: 10px;
             width: auto;
-            max-width: calc(100vw - 40px);
         }
 
         .float-btn {
@@ -927,6 +928,8 @@
             color: var(--dark);
             position: relative;
             flex-shrink: 0;
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
         }
 
         .float-btn:hover {
@@ -1014,9 +1017,8 @@
             }
 
             .floating-buttons {
-                bottom: 16px;
-                right: calc(16px + max(0px, (100vw - 100%) / 2));
-                gap: 8px;
+                top: 16px;
+                right: 16px;
             }
 
             .float-btn {
@@ -1077,9 +1079,8 @@
             }
 
             .floating-buttons {
-                bottom: 10px;
-                right: calc(10px + max(0px, (100vw - 100%) / 2));
-                gap: 6px;
+                top: 10px;
+                right: 10px;
             }
 
             .float-btn {
@@ -1128,7 +1129,7 @@
 </head>
 
 <body>
-    <!-- ========== 开场动画层 ========== -->
+    <!-- 开场动画 -->
     <div class="intro-overlay" id="introOverlay">
         <div class="intro-icon">🐋</div>
         <h2 class="intro-title">等一下等一下</h2>
@@ -1141,12 +1142,12 @@
         <button class="intro-btn" id="introEnterBtn">✨ 尿急可以按 ✨</button>
     </div>
 
-    <!-- 主内容容器 -->
+    <!-- 主内容 -->
     <div class="main-content" id="mainContent">
         <div class="floating-particles" id="particlesContainer"></div>
         <div class="toast" id="toast"></div>
 
-        <!-- 只保留 BGM 按钮 -->
+        <!-- BGM 按钮（右上角） -->
         <div class="floating-buttons">
             <button class="float-btn bgm-btn" id="bgmBtn" title="🎵 背景音乐 开/关">🎵</button>
         </div>
@@ -1154,8 +1155,7 @@
         <!-- Hero -->
         <section class="section hero-section" id="section1">
             <div class="hero-avatar-wrapper">
-                <div class="hero-avatar"><img src="img/sohai2.jpeg" alt="头像">
-                </div>
+                <div class="hero-avatar"><img src="img/sohai2.jpeg" alt="头像"></div>
                 <span class="hero-sparkle">✨</span><span class="hero-sparkle">💫</span><span
                     class="hero-sparkle">🌟</span>
             </div>
@@ -1166,9 +1166,7 @@
         </section>
         <div class="section-divider"></div>
 
-
-
-        <!-- MBTI 简洁版 -->
+        <!-- MBTI -->
         <section class="section" id="section3">
             <span class="section-tag">🧠 性格密码</span>
             <h2 class="section-title">我的 MBTI</h2>
@@ -1181,7 +1179,6 @@
                     安静、富有想象力、充满同情心，渴望理解人性与世界的温柔角落。</p>
             </div>
         </section>
-
         <div class="section-divider"></div>
 
         <!-- 星座 -->
@@ -1310,7 +1307,6 @@
                 </div>
             </div>
         </section>
-
         <div class="section-divider"></div>
 
         <!-- 留言便签墙 -->
@@ -1344,40 +1340,31 @@
 
     <script>
         (function () {
-            // ========== 开场动画逻辑 ==========
+            // 开场动画
             const introOverlay = document.getElementById('introOverlay');
             const enterBtn = document.getElementById('introEnterBtn');
-
             function closeIntro() {
                 introOverlay.classList.add('fade-out');
-                // 移除元素以防阻挡交互
                 setTimeout(() => {
-                    if (introOverlay.parentNode) {
-                        introOverlay.remove();
-                    }
+                    if (introOverlay.parentNode) introOverlay.remove();
                 }, 800);
             }
-
-            // 点击“进入”按钮
-            enterBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                closeIntro();
-            });
-
-            // 点击任意位置也可进入
+            enterBtn.addEventListener('click', (e) => { e.stopPropagation(); closeIntro(); });
             introOverlay.addEventListener('click', closeIntro);
-
-            // 3.5秒后自动进入
             setTimeout(closeIntro, 3500);
 
-
-
+            // 滚动动画
             const allSections = document.querySelectorAll('.section');
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
             }, { threshold: 0.12 });
             allSections.forEach(s => observer.observe(s));
-            setTimeout(() => { allSections.forEach(s => { const r = s.getBoundingClientRect(); if (r.top < window.innerHeight && r.bottom > 0) s.classList.add('visible'); }); }, 150);
+            setTimeout(() => {
+                allSections.forEach(s => {
+                    const r = s.getBoundingClientRect();
+                    if (r.top < window.innerHeight && r.bottom > 0) s.classList.add('visible');
+                });
+            }, 150);
 
             // Toast
             const toastEl = document.getElementById('toast');
@@ -1409,7 +1396,7 @@
             // BGM
             const bgmBtn = document.getElementById('bgmBtn');
             let audioCtx = null, bgmPlaying = false, bgmSource = null, bgmBuffer = null;
-            const bgmSrc = 'BGM.mp3'; // 👈 改成您的MP3文件名，如 'myBgm.mp3'
+            const bgmSrc = 'BGM.mp3';
 
             async function loadAudioBuffer() {
                 const response = await fetch(bgmSrc);
@@ -1422,7 +1409,6 @@
                     audioCtx = new (window.AudioContext || window.webkitAudioContext)();
                 }
                 if (audioCtx.state === 'suspended') await audioCtx.resume();
-
                 if (!bgmBuffer) {
                     try {
                         bgmBuffer = await loadAudioBuffer();
@@ -1431,16 +1417,14 @@
                         return;
                     }
                 }
-
                 if (bgmPlaying) return;
-
                 const source = audioCtx.createBufferSource();
                 source.buffer = bgmBuffer;
                 source.loop = true;
-                source.loopStart = 69; // 从1分15秒开始循环
+                source.loopStart = 69; // 1分9秒开始循环
                 source.loopEnd = bgmBuffer.duration;
                 source.connect(audioCtx.destination);
-                source.start(0, 69); // 从1分15秒处开始播放
+                source.start(0, 69);
                 bgmSource = source;
                 bgmPlaying = true;
                 bgmBtn.classList.add('playing');
@@ -1513,8 +1497,6 @@
             stickyInput.addEventListener('keydown', e => { if (e.key === 'Enter') stickySubmit.click(); });
             renderStickyNotes();
 
-
-
             // 爱好轮播
             const wrapper = document.getElementById('hobbyWrapper');
             const slides = wrapper.querySelectorAll('.slider-slide');
@@ -1544,7 +1526,6 @@
             }
             prevBtn.addEventListener('click', () => goToSlide(currentIndex - 1));
             nextBtn.addEventListener('click', () => goToSlide(currentIndex + 1));
-
             let autoPlay = setInterval(() => goToSlide(currentIndex + 1), 5000);
             let touchStartX = 0;
             wrapper.addEventListener('touchstart', e => {
@@ -1573,6 +1554,7 @@
             }, { threshold: 0.3 });
             document.querySelectorAll('.skill-list').forEach(l => skillObserver.observe(l));
 
+            // 键盘快捷键
             document.addEventListener('keydown', e => {
                 if (e.key === 'm' && e.ctrlKey) { e.preventDefault(); bgmBtn.click(); }
             });
