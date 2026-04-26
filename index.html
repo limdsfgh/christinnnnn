@@ -4,7 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>✨ 我的可爱小窝 · 关于我</title>
+    <title>🐋 Christin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=ZCOOL+KuaiLe&display=swap"
+        rel="stylesheet">
     <style>
         :root {
             --bg: #fbeece;
@@ -34,12 +36,12 @@
         html {
             scroll-behavior: smooth;
             font-size: 16px;
-         /*   overflow-x: hidden;*/
+            /*   overflow-x: hidden;*/
             width: 100%;
         }
 
         body {
-            font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', 'Hiragino Sans GB', sans-serif;
+            /* font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', 'Hiragino Sans GB', sans-serif;*/
             background-color: var(--bg);
             color: var(--text);
             line-height: 1.7;
@@ -51,6 +53,14 @@
             user-select: none;
             -webkit-user-select: none;
             touch-action: pan-y;
+        }
+
+        body {
+            font-family: 'ZCOOL KuaiLe', cursive;
+        }
+
+        button {
+            font-family: 'ZCOOL KuaiLe', cursive;
         }
 
         /* ========== 开场动画 ========== */
@@ -522,11 +532,13 @@
             width: 100%;
             transition: var(--transition);
             text-align: center;
+            border: 2px dashed transparent;
         }
 
         .info-card:hover {
             box-shadow: var(--shadow-hover);
             transform: translateY(-2px);
+            border-color: var(--accent);
         }
 
         .section-illustration {
@@ -542,6 +554,19 @@
             background: #f0e8d9;
         }
 
+        .mbti-photo {
+            width: 100%;
+            max-width: 240px;
+            /* 从原来的380px缩小到240px */
+            height: auto;
+            margin: 0 auto 16px;
+            display: block;
+            object-fit: contain;
+            /* 完整显示，不裁剪 */
+            background: transparent;
+            /* 移除原有背景色 */
+        }
+
         .mbti-display {
             font-size: clamp(2.5rem, 6vw, 4rem);
             font-weight: 900;
@@ -550,7 +575,7 @@
             display: inline-block;
             padding: 12px 30px;
             border-radius: 60px;
-            margin: 16px 0;
+            /* margin: 16px 0;*/
             cursor: pointer;
             transition: var(--transition);
             box-shadow: var(--shadow-soft);
@@ -560,36 +585,6 @@
             transform: scale(1.05);
         }
 
-        .mbti-detail {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            justify-content: center;
-            margin-top: 8px;
-        }
-
-        .mbti-letter {
-            background: var(--blue);
-            color: var(--dark);
-            padding: 6px 16px;
-            border-radius: 50px;
-            font-weight: 700;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .mbti-letter:hover {
-            background: #c5dde8;
-            transform: translateY(-2px);
-        }
-
-        .mbti-tooltip {
-            font-size: 0.85rem;
-            color: var(--text-light);
-            margin-top: 12px;
-            min-height: 24px;
-        }
 
         .zodiac-icon {
             font-size: 4rem;
@@ -772,7 +767,10 @@
             display: flex;
             flex-direction: column;
             gap: 16px;
+
         }
+
+
 
         .sticky-input-row {
             display: flex;
@@ -1094,6 +1092,10 @@
                 max-width: 240px;
             }
 
+            .mbti-photo {
+                max-width: 180px;
+            }
+
             .mbti-display {
                 font-size: 2rem;
                 padding: 10px 20px;
@@ -1128,15 +1130,15 @@
 <body>
     <!-- ========== 开场动画层 ========== -->
     <div class="intro-overlay" id="introOverlay">
-        <div class="intro-icon">🐣</div>
-        <h2 class="intro-title">欢迎来到我的小窝</h2>
-        <p class="intro-subtitle">正在加载可爱能量…</p>
+        <div class="intro-icon">🐋</div>
+        <h2 class="intro-title">等一下等一下</h2>
+        <p class="intro-subtitle">你就抓紧时间 慢慢等吧</p>
         <div class="intro-dots">
             <div class="intro-dot"></div>
             <div class="intro-dot"></div>
             <div class="intro-dot"></div>
         </div>
-        <button class="intro-btn" id="introEnterBtn">✨ 马上进入 ✨</button>
+        <button class="intro-btn" id="introEnterBtn">✨ 尿急可以按 ✨</button>
     </div>
 
     <!-- 主内容容器 -->
@@ -1152,7 +1154,7 @@
         <!-- Hero -->
         <section class="section hero-section" id="section1">
             <div class="hero-avatar-wrapper">
-                <div class="hero-avatar"><img src="https://placehold.co/300x300/fbeec/53442d?text=🐣+Photo" alt="头像">
+                <div class="hero-avatar"><img src="img/sohai2.jpeg" alt="头像">
                 </div>
                 <span class="hero-sparkle">✨</span><span class="hero-sparkle">💫</span><span
                     class="hero-sparkle">🌟</span>
@@ -1160,7 +1162,45 @@
             <h1 class="hero-title">欢迎来到我的<span class="highlight">可爱小窝</span></h1>
             <p class="hero-desc">这里住着一只充满好奇心的小生物~ 喜欢收集快乐、分享温暖，快来认识我吧！</p>
             <button class="hero-cta"
-                onclick="document.getElementById('section2').scrollIntoView({behavior:'smooth'})">💛 了解我</button>
+                onclick="document.getElementById('section3').scrollIntoView({behavior:'smooth'})">💛 了解我</button>
+        </section>
+        <div class="section-divider"></div>
+
+
+
+        <!-- MBTI 简洁版 -->
+        <section class="section" id="section3">
+            <span class="section-tag">🧠 性格密码</span>
+            <h2 class="section-title">我的 MBTI</h2>
+            <p class="section-subtitle">探索灵魂的底色</p>
+            <div class="info-card">
+                <img src="img/isfp3.png" alt="MBTI 照片" class="mbti-photo">
+                <div class="mbti-display" style="cursor:default; font-size:2.5rem; margin-bottom:8px;">INFP</div>
+                <p style="color:var(--text-light); font-size:0.95rem; margin-bottom:4px;">调停者 · 理想主义者 · 治愈者</p>
+                <p style="color:var(--text-light); font-size:0.85rem; max-width:380px; margin:0 auto;">
+                    安静、富有想象力、充满同情心，渴望理解人性与世界的温柔角落。</p>
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- 星座 -->
+        <section class="section" id="section5">
+            <span class="section-tag">🌠 星空物语</span>
+            <h2 class="section-title">我的星座</h2>
+            <p class="section-subtitle">双鱼座 · 2月19日 - 3月20日</p>
+            <div class="info-card">
+                <img src="https://placehold.co/400x300/fbeec/53442d?text=Pisces+Image" alt="双鱼座"
+                    class="section-illustration" onerror="this.style.display='none'">
+                <span class="zodiac-icon">♓</span>
+                <div style="font-weight:700; font-size:1.2rem; margin-bottom:8px;">双鱼座 Pisces</div>
+                <p style="color:var(--text-light); margin-bottom:12px;">浪漫、富有想象力、富有同情心，是十二星座中最具梦幻色彩的存在。</p>
+                <div class="zodiac-traits">
+                    <span class="zodiac-trait">🌊 敏感</span><span class="zodiac-trait">🎨 艺术</span>
+                    <span class="zodiac-trait">💭 爱幻想</span><span class="zodiac-trait">💖 共情力强</span>
+                    <span class="zodiac-trait">🌙 浪漫</span>
+                </div>
+            </div>
         </section>
         <div class="section-divider"></div>
 
@@ -1182,75 +1222,6 @@
                     </div>
                     <p class="ip-bio">
                         哈喽！我是暖暖，一只从云朵上掉下来的小精灵~<br>我喜欢用画笔记录生活中的小确幸，收集世界上所有温暖的笑容。我的使命是让每一个来到这个小窝的人都能感受到一丝甜蜜和治愈！💕</p>
-                </div>
-            </div>
-        </section>
-        <div class="section-divider"></div>
-
-        <!-- MBTI -->
-        <section class="section" id="section3">
-            <span class="section-tag">🧠 性格密码</span>
-            <h2 class="section-title">我的 MBTI</h2>
-            <p class="section-subtitle">点击字母看看每个维度的含义吧~</p>
-            <div class="info-card">
-                <img src="https://placehold.co/400x300/fbeec/53442d?text=MBTI+Illustration" alt="MBTI"
-                    class="section-illustration" onerror="this.style.display='none'">
-                <div class="mbti-display" id="mbtiDisplay">INFP</div>
-                <div class="mbti-detail">
-                    <span class="mbti-letter" data-desc="内向 (Introversion) ：从独处中获得能量，喜欢深度思考。">I</span>
-                    <span class="mbti-letter" data-desc="直觉 (Intuition) ：关注可能性和抽象概念，喜欢想象。">N</span>
-                    <span class="mbti-letter" data-desc="情感 (Feeling) ：基于价值观和情感做决定，富有同情心。">F</span>
-                    <span class="mbti-letter" data-desc="感知 (Perceiving) ：灵活随性，喜欢保持开放的选择。">P</span>
-                </div>
-                <div class="mbti-tooltip" id="mbtiTooltip">👆 点击字母查看解释</div>
-            </div>
-        </section>
-        <div class="section-divider"></div>
-
-        <!-- 留言便签墙 -->
-        <section class="section" id="section4">
-            <span class="section-tag">📝 留言便签</span>
-            <h2 class="section-title">便签留言墙</h2>
-            <p class="section-subtitle">选一个喜欢的颜色，留下你想说的话吧~</p>
-            <div class="sticky-wall">
-                <div class="sticky-input-row">
-                    <input type="text" class="sticky-input" id="stickyInput" placeholder="写下你想说的话..." maxlength="60">
-                    <div class="sticky-color-picker" id="stickyColorPicker">
-                        <span class="sticky-color-dot active" data-color="#fff8e7" style="background:#fff8e7;"
-                            title="奶油"></span>
-                        <span class="sticky-color-dot" data-color="#dbecf4" style="background:#dbecf4;"
-                            title="浅蓝"></span>
-                        <span class="sticky-color-dot" data-color="#fde8c8" style="background:#fde8c8;"
-                            title="暖黄"></span>
-                        <span class="sticky-color-dot" data-color="#ffe8e0" style="background:#ffe8e0;"
-                            title="粉嫩"></span>
-                        <span class="sticky-color-dot" data-color="#e8f5e0" style="background:#e8f5e0;"
-                            title="薄荷"></span>
-                    </div>
-                    <button class="sticky-submit" id="stickySubmit">📌 贴上</button>
-                </div>
-                <div class="sticky-notes-grid" id="stickyNotesGrid">
-                    <span class="sticky-empty">还没有便签哦~ 快来贴第一张吧！💌</span>
-                </div>
-            </div>
-        </section>
-        <div class="section-divider"></div>
-
-        <!-- 星座 -->
-        <section class="section" id="section5">
-            <span class="section-tag">🌠 星空物语</span>
-            <h2 class="section-title">我的星座</h2>
-            <p class="section-subtitle">双鱼座 · 2月19日 - 3月20日</p>
-            <div class="info-card">
-                <img src="https://placehold.co/400x300/fbeec/53442d?text=Pisces+Image" alt="双鱼座"
-                    class="section-illustration" onerror="this.style.display='none'">
-                <span class="zodiac-icon">♓</span>
-                <div style="font-weight:700; font-size:1.2rem; margin-bottom:8px;">双鱼座 Pisces</div>
-                <p style="color:var(--text-light); margin-bottom:12px;">浪漫、富有想象力、富有同情心，是十二星座中最具梦幻色彩的存在。</p>
-                <div class="zodiac-traits">
-                    <span class="zodiac-trait">🌊 敏感</span><span class="zodiac-trait">🎨 艺术</span>
-                    <span class="zodiac-trait">💭 爱幻想</span><span class="zodiac-trait">💖 共情力强</span>
-                    <span class="zodiac-trait">🌙 浪漫</span>
                 </div>
             </div>
         </section>
@@ -1339,6 +1310,36 @@
                 </div>
             </div>
         </section>
+
+        <div class="section-divider"></div>
+
+        <!-- 留言便签墙 -->
+        <section class="section" id="section4">
+            <span class="section-tag">📝 留言便签</span>
+            <h2 class="section-title">便签留言墙</h2>
+            <p class="section-subtitle">选一个喜欢的颜色，留下你想说的话吧~</p>
+            <div class="sticky-wall">
+                <div class="sticky-input-row">
+                    <input type="text" class="sticky-input" id="stickyInput" placeholder="写下你想说的话..." maxlength="60">
+                    <div class="sticky-color-picker" id="stickyColorPicker">
+                        <span class="sticky-color-dot active" data-color="#fff8e7" style="background:#fff8e7;"
+                            title="奶油"></span>
+                        <span class="sticky-color-dot" data-color="#dbecf4" style="background:#dbecf4;"
+                            title="浅蓝"></span>
+                        <span class="sticky-color-dot" data-color="#fde8c8" style="background:#fde8c8;"
+                            title="暖黄"></span>
+                        <span class="sticky-color-dot" data-color="#ffe8e0" style="background:#ffe8e0;"
+                            title="粉嫩"></span>
+                        <span class="sticky-color-dot" data-color="#e8f5e0" style="background:#e8f5e0;"
+                            title="薄荷"></span>
+                    </div>
+                    <button class="sticky-submit" id="stickySubmit">📌 贴上</button>
+                </div>
+                <div class="sticky-notes-grid" id="stickyNotesGrid">
+                    <span class="sticky-empty">还没有便签哦~ 快来贴第一张吧！💌</span>
+                </div>
+            </div>
+        </section>
     </div>
 
     <script>
@@ -1370,7 +1371,7 @@
             setTimeout(closeIntro, 3500);
 
 
-            // ========== 以下是原有 JS 逻辑（保持不变） ==========
+
             const allSections = document.querySelectorAll('.section');
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
@@ -1407,43 +1408,58 @@
 
             // BGM
             const bgmBtn = document.getElementById('bgmBtn');
-            let audioCtx = null, bgmPlaying = false, bgmNodes = [], bgmInterval = null;
-            const melodyNotes = [
-                { freq: 523.25, dur: 0.25 }, { freq: 659.25, dur: 0.25 }, { freq: 783.99, dur: 0.25 }, { freq: 659.25, dur: 0.2 },
-                { freq: 523.25, dur: 0.3 }, { freq: 587.33, dur: 0.25 }, { freq: 659.25, dur: 0.25 }, { freq: 523.25, dur: 0.35 },
-                { freq: 783.99, dur: 0.2 }, { freq: 880, dur: 0.2 }, { freq: 783.99, dur: 0.25 }, { freq: 659.25, dur: 0.3 },
-                { freq: 523.25, dur: 0.2 }, { freq: 659.25, dur: 0.25 }, { freq: 587.33, dur: 0.3 }, { freq: 523.25, dur: 0.5 }, { freq: 0, dur: 0.35 }
-            ];
-            function playNote(f, s, d) {
-                if (!audioCtx || !bgmPlaying || f === 0) return;
-                const o = audioCtx.createOscillator(), g = audioCtx.createGain();
-                o.type = 'triangle'; o.frequency.setValueAtTime(f, s);
-                g.gain.setValueAtTime(0, s); g.gain.linearRampToValueAtTime(0.15, s + 0.03);
-                g.gain.linearRampToValueAtTime(0.08, s + d * 0.7); g.gain.linearRampToValueAtTime(0, s + d);
-                o.connect(g); g.connect(audioCtx.destination); o.start(s); o.stop(s + d + 0.05);
-                bgmNodes.push(o);
+            let audioCtx = null, bgmPlaying = false, bgmSource = null, bgmBuffer = null;
+            const bgmSrc = 'BGM.mp3'; // 👈 改成您的MP3文件名，如 'myBgm.mp3'
+
+            async function loadAudioBuffer() {
+                const response = await fetch(bgmSrc);
+                const arrayBuffer = await response.arrayBuffer();
+                return await audioCtx.decodeAudioData(arrayBuffer);
             }
-            function scheduleLoop() {
-                if (!bgmPlaying) return;
-                const n = audioCtx.currentTime; let t = n + 0.05;
-                melodyNotes.forEach(x => { playNote(x.freq, t, x.dur); t += x.dur; });
-                bgmNodes = bgmNodes.filter(o => { try { return o.context && o.context.state !== 'closed'; } catch (e) { return false; } });
-                if (bgmNodes.length > 60) { const r = bgmNodes.splice(0, bgmNodes.length - 40); r.forEach(o => { try { o.stop(); } catch (e) { } }); }
-                const total = melodyNotes.reduce((s, x) => s + x.dur, 0);
-                bgmInterval = setTimeout(scheduleLoop, total * 1000 - 50);
+
+            async function startBGM() {
+                if (!audioCtx) {
+                    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                }
+                if (audioCtx.state === 'suspended') await audioCtx.resume();
+
+                if (!bgmBuffer) {
+                    try {
+                        bgmBuffer = await loadAudioBuffer();
+                    } catch (e) {
+                        showToast('❌ 音乐加载失败');
+                        return;
+                    }
+                }
+
+                if (bgmPlaying) return;
+
+                const source = audioCtx.createBufferSource();
+                source.buffer = bgmBuffer;
+                source.loop = true;
+                source.loopStart = 69; // 从1分15秒开始循环
+                source.loopEnd = bgmBuffer.duration;
+                source.connect(audioCtx.destination);
+                source.start(0, 69); // 从1分15秒处开始播放
+                bgmSource = source;
+                bgmPlaying = true;
+                bgmBtn.classList.add('playing');
+                bgmBtn.innerHTML = '🎵';
+                showToast('🎵 BGM 开启啦~');
             }
-            function startBGM() {
-                if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                if (audioCtx.state === 'suspended') audioCtx.resume();
-                bgmPlaying = true; bgmBtn.classList.add('playing'); bgmBtn.innerHTML = '🎵';
-                scheduleLoop(); showToast('🎵 BGM 开启啦~');
-            }
+
             function stopBGM() {
-                bgmPlaying = false; bgmBtn.classList.remove('playing'); bgmBtn.innerHTML = '🎵';
-                if (bgmInterval) clearTimeout(bgmInterval);
-                bgmNodes.forEach(o => { try { o.stop(); } catch (e) { } }); bgmNodes = [];
+                if (!bgmPlaying) return;
+                if (bgmSource) {
+                    try { bgmSource.stop(); } catch (e) { }
+                    bgmSource = null;
+                }
+                bgmPlaying = false;
+                bgmBtn.classList.remove('playing');
+                bgmBtn.innerHTML = '🎵';
                 showToast('🔇 BGM 已关闭');
             }
+
             bgmBtn.addEventListener('click', () => bgmPlaying ? stopBGM() : startBGM());
 
             // 便签墙
@@ -1497,15 +1513,7 @@
             stickyInput.addEventListener('keydown', e => { if (e.key === 'Enter') stickySubmit.click(); });
             renderStickyNotes();
 
-            // MBTI
-            const mbtiTooltip = document.getElementById('mbtiTooltip');
-            document.querySelectorAll('.mbti-letter').forEach(l => {
-                l.addEventListener('click', e => {
-                    mbtiTooltip.textContent = e.target.dataset.desc;
-                    mbtiTooltip.style.opacity = 0;
-                    setTimeout(() => mbtiTooltip.style.opacity = 1, 50);
-                });
-            });
+
 
             // 爱好轮播
             const wrapper = document.getElementById('hobbyWrapper');
