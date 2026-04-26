@@ -39,23 +39,22 @@
             width: 100%;
         }
 
-        body {
-            font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', 'Hiragino Sans GB', sans-serif;
-            background-color: var(--bg);
-            color: var(--text);
-            line-height: 1.7;
-            overflow-x: hidden;
-            width: 100%;
-            position: relative;
-            -webkit-tap-highlight-color: transparent;
-            user-select: none;
-            -webkit-user-select: none;
-            /* 新增强制垂直滚动，消除移动端手势歧义 */
-            touch-action: pan-y;
-            /* 基础光标保持自定义，但移动端会被媒体查询覆盖 */
-            cursor: url("data:image/svg+xml,..."), auto;
-            /* 原来的光标地址不变 */
-        }
+      body {
+    font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', 'Hiragino Sans GB', sans-serif;
+    background-color: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    overflow-x: hidden;
+    width: 100%;
+    position: relative;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+    -webkit-user-select: none;
+    /* 新增强制垂直滚动，消除移动端手势歧义 */
+    touch-action: pan-y;
+    /* 基础光标保持自定义，但移动端会被媒体查询覆盖 */
+    cursor: url("data:image/svg+xml,..."), auto;   /* 原来的光标地址不变 */
+}
 
         .floating-particles {
             position: fixed;
@@ -896,9 +895,8 @@
             }
 
             body {
-                cursor: auto !important;
-                /* 移动端完全禁用自定义光标 */
-            }
+        cursor: auto !important;   /* 移动端完全禁用自定义光标 */
+    }
 
             .section {
                 padding: 45px 4vw;
@@ -1278,12 +1276,8 @@
             const pc = document.getElementById('particlesContainer');
             const emojis = ['🌸', '💕', '⭐', '🫧', '💛', '✨', '🌷', '🍀', '🎀', '💫', '🦋', '☁️'];
             function createParticle() { const p = document.createElement('span'); p.className = 'particle'; p.textContent = emojis[Math.floor(Math.random() * emojis.length)]; p.style.left = Math.random() * 95 + '%'; p.style.fontSize = (0.8 + Math.random() * 1.8) + 'rem'; p.style.animationDuration = (8 + Math.random() * 16) + 's'; p.style.animationDelay = Math.random() * 8 + 's'; pc.appendChild(p); p.addEventListener('animationend', () => p.remove()); }
-            for (let i = 0; i < 14; i++) setTimeout(() => {
-                for (let i = 0; i < 10; i++) setTimeout(createParticle, i * 500);
-            }, 800);
-            setInterval(() => {
-                if (pc.children.length < 15) createParticle();   // 上限从20降到15
-            }, 3000);
+            for (let i = 0; i < 14; i++) setTimeout(createParticle, i * 400);
+            setInterval(() => { if (pc.children.length < 20) createParticle(); }, 2500);
 
             const bgmBtn = document.getElementById('bgmBtn'); let audioCtx = null, bgmPlaying = false, bgmNodes = [], bgmInterval = null;
             const melodyNotes = [{ freq: 523.25, dur: 0.25 }, { freq: 659.25, dur: 0.25 }, { freq: 783.99, dur: 0.25 }, { freq: 659.25, dur: 0.2 }, { freq: 523.25, dur: 0.3 }, { freq: 587.33, dur: 0.25 }, { freq: 659.25, dur: 0.25 }, { freq: 523.25, dur: 0.35 }, { freq: 783.99, dur: 0.2 }, { freq: 880, dur: 0.2 }, { freq: 783.99, dur: 0.25 }, { freq: 659.25, dur: 0.3 }, { freq: 523.25, dur: 0.2 }, { freq: 659.25, dur: 0.25 }, { freq: 587.33, dur: 0.3 }, { freq: 523.25, dur: 0.5 }, { freq: 0, dur: 0.35 }];
