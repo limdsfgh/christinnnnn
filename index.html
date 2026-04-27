@@ -47,7 +47,6 @@
             overflow-x: hidden;
             width: 100%;
             position: relative;
-            cursor: url("data:image/svg+xml,...") 10 10, auto;
             -webkit-tap-highlight-color: transparent;
             user-select: none;
             -webkit-user-select: none;
@@ -59,8 +58,7 @@
             font-family: 'ZCOOL KuaiLe', cursive;
         }
 
-        /* 移动设备禁用自定义光标 */
-        @media (pointer: coarse) {
+        @media (pointer:coarse) {
             body {
                 cursor: auto !important;
             }
@@ -297,7 +295,6 @@
             max-width: 500px;
         }
 
-        /* Hero */
         .hero-section {
             padding-top: 80px;
             padding-bottom: 40px;
@@ -420,7 +417,6 @@
             background: #3d3222;
         }
 
-        /* IP档案 */
         .ip-section .ip-card {
             background: var(--white);
             border-radius: var(--radius-lg);
@@ -517,7 +513,20 @@
             line-height: 1.6;
         }
 
-        /* 通用卡片 */
+        .ip-role a {
+            color: var(--text-light);
+            transition: color 0.2s;
+            text-decoration: underline;
+            /* 默认显示下划线 */
+            text-underline-offset: 3px;
+            /* 让下划线离文字稍微远一点 */
+        }
+
+        .ip-role a:hover {
+            color: #53442d;
+            /* 悬停时只变色，下划线保持不变 */
+        }
+
         .info-card {
             background: var(--white);
             border-radius: var(--radius-lg);
@@ -606,7 +615,6 @@
             transform: translateY(-2px);
         }
 
-        /* 爱好轮播 */
         .slider-card {
             padding: 20px 24px 24px;
         }
@@ -711,7 +719,6 @@
             transform: scale(1.4);
         }
 
-        /* 技能条 */
         .skill-list {
             display: flex;
             flex-direction: column;
@@ -749,153 +756,80 @@
             transition: width 1s ease;
         }
 
-        /* 便签墙 */
-        .sticky-wall {
-            width: 100%;
-            max-width: 750px;
-            background: var(--white);
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-card);
-            padding: 25px;
+        /* 好运签卡片 */
+        .fortune-card {
+            padding: 40px 24px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .fortune-content {
+            min-height: 120px;
             display: flex;
             flex-direction: column;
-            gap: 16px;
-            border: 2px dashed transparent;
-
-        }
-
-        .sticky-input-row {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        .sticky-input {
-            flex: 1;
-            min-width: 180px;
-            padding: 12px 18px;
-            border-radius: 50px;
-            border: 2px solid #e8dfd0;
-            font-size: 0.95rem;
-            outline: none;
-            background: #fefcf7;
-            color: var(--dark);
-            font-family: inherit;
-        }
-
-        .sticky-input#stickyAuthor {
-            flex: 0.5;
-            min-width: 100px;
-        }
-
-        .sticky-input:focus {
-            border-color: var(--accent);
-            box-shadow: 0 0 0 4px rgba(143, 129, 113, 0.08);
-        }
-
-        .sticky-color-picker {
-            display: flex;
-            gap: 6px;
             align-items: center;
-            flex-wrap: wrap;
-        }
-
-        .sticky-color-dot {
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            cursor: pointer;
-            border: 2px solid transparent;
-            transition: var(--transition);
-        }
-
-        .sticky-color-dot:hover,
-        .sticky-color-dot.active {
-            border-color: var(--dark);
-            transform: scale(1.2);
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-        }
-
-        .sticky-submit {
-            padding: 10px 22px;
-            background: var(--dark);
-            color: #fff;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            font-weight: 700;
-            font-size: 0.9rem;
-            transition: var(--transition);
-            white-space: nowrap;
-        }
-
-        .sticky-submit:hover {
-            background: #3d3222;
-            transform: translateY(-2px);
-        }
-
-        .sticky-notes-grid {
-            display: flex;
-            flex-wrap: wrap;
+            justify-content: center;
             gap: 12px;
-            min-height: 60px;
+            transition: opacity 0.3s;
         }
 
-        .sticky-note {
-            padding: 14px 18px;
-            border-radius: 4px 18px 4px 18px;
-            font-size: 0.9rem;
-            color: var(--dark);
-            animation: popIn 0.4s var(--bounce);
-            box-shadow: 1px 3px 8px rgba(0, 0, 0, 0.06);
-            max-width: 200px;
-            word-break: break-word;
-            display: flex;
-            align-items: flex-start;
-            gap: 6px;
+        .fortune-icon {
+            font-size: 3rem;
+            animation: float 2s ease-in-out infinite;
         }
 
-        .sticky-note:hover {
-            transform: rotate(-1deg) scale(1.03);
-            box-shadow: 2px 5px 14px rgba(0, 0, 0, 0.1);
-        }
+        @keyframes float {
 
-        @keyframes popIn {
-            0% {
-                transform: scale(0) rotate(-10deg);
-                opacity: 0;
-            }
-
+            0%,
             100% {
-                transform: scale(1) rotate(0deg);
-                opacity: 1;
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
             }
         }
 
-        .sticky-note .delete-note {
-            cursor: pointer;
-            font-size: 0.75rem;
-            opacity: 0.5;
-            background: none;
-            border: none;
+        .fortune-text {
+            font-size: 1.3rem;
+            font-weight: 700;
             color: var(--dark);
         }
 
-        .sticky-note .delete-note:hover {
-            opacity: 1;
-            transform: scale(1.3);
-        }
-
-        .sticky-empty {
+        .fortune-sub {
+            font-size: 0.9rem;
             color: var(--text-light);
-            font-size: 0.85rem;
-            opacity: 0.7;
-            text-align: center;
-            width: 100%;
-            padding: 10px;
         }
 
-        /* 浮动BGM按钮 */
+        .fortune-card.shaking {
+            animation: shake 0.5s ease-in-out;
+        }
+
+        @keyframes shake {
+
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            20% {
+                transform: translateX(-8px);
+            }
+
+            40% {
+                transform: translateX(8px);
+            }
+
+            60% {
+                transform: translateX(-5px);
+            }
+
+            80% {
+                transform: translateX(5px);
+            }
+        }
+
         .floating-buttons {
             position: fixed;
             top: 20px;
@@ -904,7 +838,6 @@
             display: flex;
             flex-direction: column;
             gap: 10px;
-            width: auto;
         }
 
         .float-btn {
@@ -921,7 +854,6 @@
             justify-content: center;
             background: var(--white);
             color: var(--dark);
-            position: relative;
             touch-action: manipulation;
             -webkit-tap-highlight-color: transparent;
         }
@@ -983,7 +915,73 @@
             opacity: 1;
         }
 
-        /* 响应式 */
+        /* 弹窗样式 */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+
+        .popup-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .popup-box {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: 40px 30px;
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            box-shadow: var(--shadow-hover);
+            transform: scale(0.8);
+            transition: transform 0.35s cubic-bezier(0, 0, 0.2, 1);
+            border: 3px dashed var(--accent);
+        }
+
+        .popup-overlay.show .popup-box {
+            transform: scale(1);
+        }
+
+        .popup-emoji {
+            font-size: 3rem;
+            margin-bottom: 16px;
+        }
+
+        .popup-text {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 20px;
+        }
+
+        .popup-close {
+            background: var(--dark);
+            color: #fff;
+            border: none;
+            padding: 10px 28px;
+            border-radius: 50px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .popup-close:hover {
+            background: #3d3222;
+            transform: scale(1.05);
+        }
+
         @media (max-width:900px) {
             html {
                 font-size: 15px;
@@ -999,15 +997,6 @@
 
             .hero-section {
                 padding-top: 60px;
-            }
-
-            .sticky-notes-grid {
-                gap: 10px;
-            }
-
-            .sticky-note {
-                max-width: 160px;
-                font-size: 0.82rem;
             }
 
             .floating-buttons {
@@ -1056,20 +1045,6 @@
 
             .ip-tags {
                 justify-content: center;
-            }
-
-            .sticky-input-row {
-                flex-direction: column;
-            }
-
-            .sticky-color-picker {
-                justify-content: center;
-            }
-
-            .sticky-note {
-                max-width: 130px;
-                font-size: 0.75rem;
-                padding: 10px 12px;
             }
 
             .floating-buttons {
@@ -1123,7 +1098,6 @@
 </head>
 
 <body>
-    <!-- 隐藏的音频元素 -->
     <audio id="bgmAudio" src="BGM.mp3" preload="auto" loop></audio>
 
     <!-- 开场动画 -->
@@ -1139,14 +1113,20 @@
         <button class="intro-btn" id="introEnterBtn">✨ 尿急可以按 ✨</button>
     </div>
 
-    <!-- 主内容 -->
+    <!-- 弹窗 -->
+    <div class="popup-overlay" id="popupOverlay">
+        <div class="popup-box">
+            <div class="popup-emoji">😉</div>
+            <div class="popup-text">我也爱我自己</div>
+            <button class="popup-close" id="popupClose">那行</button>
+        </div>
+    </div>
+
     <div class="main-content" id="mainContent">
         <div class="floating-particles" id="particlesContainer"></div>
         <div class="toast" id="toast"></div>
 
-        <!-- BGM 按钮（右上角） -->
-        <div class="floating-buttons">
-            <button class="float-btn bgm-btn" id="bgmBtn" title="🎵 背景音乐 开/关">🎵</button>
+        <div class="floating-buttons"><button class="float-btn bgm-btn" id="bgmBtn" title="🎵 背景音乐 开/关">🎵</button>
         </div>
 
         <!-- Hero -->
@@ -1156,24 +1136,23 @@
                 <span class="hero-sparkle">✨</span><span class="hero-sparkle">💫</span><span
                     class="hero-sparkle">🌟</span>
             </div>
-            <h1 class="hero-title">欢迎来到我的<span class="highlight">可爱小窝</span></h1>
-            <p class="hero-desc">这里住着一只充满好奇心的小生物~ 喜欢收集快乐、分享温暖，快来认识我吧！</p>
-            <button class="hero-cta"
-                onclick="document.getElementById('section3').scrollIntoView({behavior:'smooth'})">💛 了解我</button>
+            <h1 class="hero-title"><span class="highlight">Christin</span></h1>
+            <p class="hero-desc">如果你正在读这段话就说明你爱上我了 如果你想否认 那为什么还在读</p>
+            <button class="hero-cta" id="openPopupBtn">💛 确实</button>
         </section>
         <div class="section-divider"></div>
 
         <!-- MBTI -->
         <section class="section" id="section3">
-            <span class="section-tag">🧠 性格密码</span>
+            <span class="section-tag">🧠 人格类型</span>
             <h2 class="section-title">我的 MBTI</h2>
             <p class="section-subtitle">探索灵魂的底色</p>
             <div class="info-card">
-                <img src="img/isfp3.png" alt="MBTI 照片" class="mbti-photo">
-                <div class="mbti-display" style="cursor:default; font-size:2.5rem; margin-bottom:8px;">INFP</div>
-                <p style="color:var(--text-light); font-size:0.95rem; margin-bottom:4px;">调停者 · 理想主义者 · 治愈者</p>
+                <img src="img/lover.png" alt="MBTI 照片" class="mbti-photo">
+                <div class="mbti-display" style="cursor:default; font-size:2.5rem; margin-bottom:8px;">LOVE-R</div>
+                <p style="color:var(--text-light); font-size:0.95rem; margin-bottom:4px;">「爱意太满，现实显得有点贫瘠」</p>
                 <p style="color:var(--text-light); font-size:0.85rem; max-width:380px; margin:0 auto;">
-                    安静、富有想象力、充满同情心，渴望理解人性与世界的温柔角落。</p>
+                    心里装了满溢的爱 但现实的感情常常跟不上我的情感浓度</p>
             </div>
         </section>
         <div class="section-divider"></div>
@@ -1184,13 +1163,12 @@
             <h2 class="section-title">我的星座</h2>
             <p class="section-subtitle">双鱼座 · 2月19日 - 3月20日</p>
             <div class="info-card">
-                <img src="https://placehold.co/400x300/fbeec/53442d?text=Pisces+Image" alt="双鱼座"
-                    class="section-illustration" onerror="this.style.display='none'">
+                <img src="img/fish.png" alt="双鱼座" class="mbti-photo">
                 <span class="zodiac-icon">♓</span>
                 <div style="font-weight:700; font-size:1.2rem; margin-bottom:8px;">双鱼座 Pisces</div>
-                <p style="color:var(--text-light); margin-bottom:12px;">浪漫、富有想象力、富有同情心，是十二星座中最具梦幻色彩的存在。</p>
+                <p style="color:var(--text-light); margin-bottom:12px;">都说鱼的记忆只有7秒 而我有14秒 可能因为我是双鱼座</p>
                 <div class="zodiac-traits">
-                    <span class="zodiac-trait">🌊 敏感</span><span class="zodiac-trait">🎨 艺术</span>
+                    <span class="zodiac-trait">🌊 敏感肌</span><span class="zodiac-trait">🎨 艺术</span>
                     <span class="zodiac-trait">💭 爱幻想</span><span class="zodiac-trait">💖 共情力强</span>
                     <span class="zodiac-trait">🌙 浪漫</span>
                 </div>
@@ -1200,15 +1178,17 @@
 
         <!-- IP档案 -->
         <section class="section ip-section" id="section2">
-            <span class="section-tag">🌟 关于我</span>
-            <h2 class="section-title">我的IP档案</h2>
-            <p class="section-subtitle">一个温暖可爱的小小角色，希望给你带来好心情~</p>
+            <span class="section-tag">🌟 我的自设</span>
+            <h2 class="section-title">我的OC档案</h2>
+            <p class="section-subtitle">一个非常可爱的小咪咪~</p>
             <div class="ip-card">
                 <div class="ip-avatar-large"><img src="https://placehold.co/260x260/fbeec/53442d?text=🐣+IP" alt="IP头像">
                 </div>
                 <div class="ip-info">
-                    <div class="ip-name">暖暖 · NuanNuan</div>
-                    <div class="ip-role">✨ 治愈系小精灵 | 快乐收集师</div>
+                    <div class="ip-name">菜猫 · CaiMiao</div>
+                    <div class="ip-role">
+                         <a href="https://instagram.com/caimiao_studio" target="_blank">@caimiao_studio</a>
+                    </div>
                     <div class="ip-tags">
                         <span class="ip-tag">☀️ 乐观</span><span class="ip-tag">🎨 爱创作</span><span class="ip-tag">🍰
                             甜品控</span>
@@ -1306,24 +1286,16 @@
         </section>
         <div class="section-divider"></div>
 
-        <!-- 留言便签墙 -->
+        <!-- 每日好运签（仅可抽一次，刷新重置） -->
         <section class="section" id="section4">
-            <span class="section-tag">📝 留言便签</span>
-            <h2 class="section-title">便签留言墙</h2>
-            <p class="section-subtitle">选一个喜欢的颜色，留下你想说的话吧~</p>
-            <div class="sticky-wall">
-                <div class="sticky-input-row">
-                    <input type="text" class="sticky-input" id="stickyInput" placeholder="写下你想说的话..." maxlength="60">
-                    <!-- 新增昵称输入 -->
-                    <input type="text" class="sticky-input" id="stickyAuthor" placeholder="你的名字（可选）" maxlength="12"
-                        style="flex:0.5; min-width:100px;">
-                    <div class="sticky-color-picker" id="stickyColorPicker">
-                        <!-- 颜色点保持不变 -->
-                    </div>
-                    <button class="sticky-submit" id="stickySubmit">📌 贴上</button>
-                </div>
-                <div class="sticky-notes-grid" id="stickyNotesGrid">
-                    <span class="sticky-empty">还没有便签哦~ 快来贴第一张吧！💌</span>
+            <span class="section-tag">✨ 今日鸡汤</span>
+            <h2 class="section-title">喝不喝鸡汤</h2>
+            <p class="section-subtitle">来都来了 领碗鸡汤再走</p>
+            <div class="info-card fortune-card" id="fortuneCard">
+                <div class="fortune-content" id="fortuneContent">
+                    <span class="fortune-icon">🥣</span>
+                    <span class="fortune-text">点我领鸡汤</span>
+                    <span class="fortune-sub">—</span>
                 </div>
             </div>
         </section>
@@ -1342,18 +1314,41 @@
             introOverlay.addEventListener('click', closeIntro);
             setTimeout(closeIntro, 3500);
 
-            // 滚动出现动画
+            // 弹窗逻辑
+            const popupOverlay = document.getElementById('popupOverlay');
+            const openPopupBtn = document.getElementById('openPopupBtn');
+            const popupClose = document.getElementById('popupClose');
+
+            openPopupBtn.addEventListener('click', () => {
+                popupOverlay.classList.add('show');
+            });
+            popupClose.addEventListener('click', () => {
+                popupOverlay.classList.remove('show');
+            });
+            popupOverlay.addEventListener('click', (e) => {
+                if (e.target === popupOverlay) popupOverlay.classList.remove('show');
+            });
+
+            // 滚动动画（核心修改：离开视口时移除visible，实现重复播放）
             const allSections = document.querySelectorAll('.section');
             const observer = new IntersectionObserver(entries => {
-                entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    } else {
+                        entry.target.classList.remove('visible');
+                    }
+                });
             }, { threshold: 0.12 });
             allSections.forEach(s => observer.observe(s));
-            setTimeout(() => {
-                allSections.forEach(s => {
-                    const r = s.getBoundingClientRect();
-                    if (r.top < window.innerHeight && r.bottom > 0) s.classList.add('visible');
-                });
-            }, 150);
+
+            // 初次加载时，位于视口内的元素直接显示（无延迟）
+            allSections.forEach(s => {
+                const r = s.getBoundingClientRect();
+                if (r.top < window.innerHeight && r.bottom > 0) {
+                    s.classList.add('visible');
+                }
+            });
 
             // Toast
             const toastEl = document.getElementById('toast');
@@ -1367,7 +1362,7 @@
 
             // 浮动粒子
             const pc = document.getElementById('particlesContainer');
-            const emojis = ['🌸', '💕', '⭐', '🫧', '💛', '✨', '🌷', '🍀', '🎀', '💫', '🦋', '☁️'];
+            const emojis = ['🌸', '💕', '⭐', '🫧', '💛', '✨', '🌷', '🍀', '🐱', '💫', '🐋', '☁️'];
             function createParticle() {
                 const p = document.createElement('span');
                 p.className = 'particle';
@@ -1382,121 +1377,77 @@
             for (let i = 0; i < 14; i++) setTimeout(createParticle, i * 400);
             setInterval(() => { if (pc.children.length < 20) createParticle(); }, 2500);
 
-            // ========== 音乐控制（使用HTML Audio） ==========
+            // BGM
             const bgmBtn = document.getElementById('bgmBtn');
             const bgmAudio = document.getElementById('bgmAudio');
-            const loopStart = 69; // 从1分09秒开始循环（单位：秒）
-
-            // 移除默认loop属性，使用自定义循环区间
+            const loopStart = 69;
             bgmAudio.loop = false;
-
-            // 当音乐播放结束时，跳回loopStart继续播放
             bgmAudio.addEventListener('ended', () => {
                 bgmAudio.currentTime = loopStart;
                 bgmAudio.play().catch(() => { });
             });
-
-            // 手动跳转：如果当前播放位置超过歌曲长度-0.2秒，也视为结束（保险）
             bgmAudio.addEventListener('timeupdate', () => {
                 if (bgmAudio.currentTime >= bgmAudio.duration - 0.2) {
                     bgmAudio.currentTime = loopStart;
                     bgmAudio.play().catch(() => { });
                 }
             });
-
+            let bgmPlaying = false;
             function playBGM() {
-                // 从loopStart开始播放
                 bgmAudio.currentTime = loopStart;
                 bgmAudio.play().then(() => {
-                    bgmPlaying = true;
-                    bgmBtn.classList.add('playing');
-                    bgmBtn.innerHTML = '🎵';
+                    bgmPlaying = true; bgmBtn.classList.add('playing'); bgmBtn.innerHTML = '🎵';
                     showToast('🎵 BGM 开启啦~');
-                }).catch(err => {
-                    showToast('❌ 播放失败，请手动点击播放');
-                });
+                }).catch(() => showToast('❌ 播放失败，请手动点击'));
             }
-
             function pauseBGM() {
-                bgmAudio.pause();
-                bgmPlaying = false;
-                bgmBtn.classList.remove('playing');
-                bgmBtn.innerHTML = '🎵';
-                showToast('🔇 BGM 已关闭');
+                bgmAudio.pause(); bgmPlaying = false; bgmBtn.classList.remove('playing');
+                bgmBtn.innerHTML = '🎵'; showToast('🔇 BGM 已关闭');
+            }
+            bgmBtn.addEventListener('click', () => bgmPlaying ? pauseBGM() : playBGM());
+
+            // ========== 好运签（限抽一次） ==========
+            const fortunes = [
+                { icon: '🌟', text: '后天的努力真的很重要', sub: '所以今天和明天休息' },
+                { icon: '🍔', text: '能者多劳', sub: '：有能力的人适合吃麦当劳' },
+                { icon: '💖', text: '错不起 我对了', sub: '-' },
+                { icon: '🍀', text: '多做多错 少做少错 不做不错 不错不错', sub: '-' },
+                { icon: '🦋', text: '关关难过 那就哄一下关关', sub: '-' },
+                { icon: '🔔', text: '一人做事一人当 当当做事他就当当当', sub: '-' },
+                { icon: '🪙', text: '你要相信是金子总是会花光的', sub: '-' },
+                { icon: '💪', text: '下辈子做一颗牙齿', sub: '将不开心的时候就有人疼了' },
+                { icon: '👍🏻', text: '等忙完了这一阵 就可以忙下一阵了', sub: '-' },
+                { icon: '👋', text: '孤的胜 你已经见过了 孤的败', sub: '-' },
+                { icon: '👁️', text: '人生一望到底', sub: '好视力' },
+                { icon: '🛌', text: '得不到的不要 想不通的睡觉', sub: '-' }
+            ];
+
+            const fortuneCard = document.getElementById('fortuneCard');
+            const fortuneContent = document.getElementById('fortuneContent');
+            let fortuneDrawn = false;
+
+            function drawFortune() {
+                if (fortuneDrawn) {
+                    showToast('🫵 已领过，不要再点了');
+                    fortuneCard.classList.add('shaking');
+                    setTimeout(() => fortuneCard.classList.remove('shaking'), 500);
+                    return;
+                }
+                fortuneCard.classList.add('shaking');
+                setTimeout(() => fortuneCard.classList.remove('shaking'), 500);
+
+                const index = Math.floor(Math.random() * fortunes.length);
+                const fortune = fortunes[index];
+                fortuneContent.innerHTML = `
+                    <span class="fortune-icon">${fortune.icon}</span>
+                    <span class="fortune-text">${fortune.text}</span>
+                    <span class="fortune-sub">${fortune.sub}</span>
+                `;
+                fortuneDrawn = true;
+                showToast('✨ 鸡汤已送达！');
             }
 
-            let bgmPlaying = false;
-
-            bgmBtn.addEventListener('click', () => {
-                if (bgmPlaying) {
-                    pauseBGM();
-                } else {
-                    playBGM();
-                }
-            });
-
-            // 便签墙
-            const stickyInput = document.getElementById('stickyInput');
-            const stickySubmit = document.getElementById('stickySubmit');
-            const stickyGrid = document.getElementById('stickyNotesGrid');
-            const colorPicker = document.getElementById('stickyColorPicker');
-            // 获取昵称输入框
-            const stickyAuthor = document.getElementById('stickyAuthor');
-            let selectedColor = '#fff8e7';
-            let stickyNotes = JSON.parse(localStorage.getItem('nuan_sticky_notes') || '[]');
-            colorPicker.addEventListener('click', e => {
-                const dot = e.target.closest('.sticky-color-dot');
-                if (!dot) return;
-                document.querySelectorAll('#stickyColorPicker .sticky-color-dot').forEach(d => d.classList.remove('active'));
-                dot.classList.add('active');
-                selectedColor = dot.dataset.color;
-            });
-            // 渲染时显示作者
-            function renderStickyNotes() {
-                stickyGrid.innerHTML = '';
-                if (stickyNotes.length === 0) {
-                    stickyGrid.innerHTML = '<span class="sticky-empty">还没有便签哦~ 快来贴第一张吧！💌</span>';
-                } else {
-                    stickyNotes.forEach((n, i) => {
-                        const el = document.createElement('div');
-                        el.className = 'sticky-note';
-                        el.style.background = n.color;
-                        el.innerHTML = `
-                <div style="flex:1; display:flex; flex-direction:column; gap:4px;">
-                    <span>${escapeHTML(n.text)}</span>
-                    <span style="font-size:0.7rem; color:#8f8271; text-align:right;">— ${escapeHTML(n.author)}</span>
-                </div>
-                <button class="delete-note" data-index="${i}">✕</button>
-            `;
-                        stickyGrid.appendChild(el);
-                    });
-                }
-                localStorage.setItem('nuan_sticky_notes', JSON.stringify(stickyNotes));
-            }
-            function escapeHTML(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
-            stickyGrid.addEventListener('click', e => {
-                const btn = e.target.closest('.delete-note');
-                if (!btn) return;
-                stickyNotes.splice(parseInt(btn.dataset.index), 1);
-                renderStickyNotes();
-                showToast('🗑 便签已移除');
-            });
-            // 提交时保存作者
-            stickySubmit.addEventListener('click', () => {
-                const text = stickyInput.value.trim();
-                if (!text) { showToast('😊 先写点什么吧~'); stickyInput.focus(); return; }
-                if (text.length > 60) { showToast('📝 内容太长啦，最多60个字哦~'); return; }
-                const author = stickyAuthor.value.trim() || '匿名';  // 默认匿名
-                stickyNotes.push({ text, color: selectedColor, author });
-                if (stickyNotes.length > 30) stickyNotes.shift();
-                renderStickyNotes();
-                stickyInput.value = '';
-                stickyAuthor.value = '';   // 清空昵称
-                stickyInput.focus();
-                showToast('💌 便签贴好啦！');
-            });
-            stickyInput.addEventListener('keydown', e => { if (e.key === 'Enter') stickySubmit.click(); });
-            renderStickyNotes();
+            fortuneCard.addEventListener('click', drawFortune);
 
             // 爱好轮播
             const wrapper = document.getElementById('hobbyWrapper');
@@ -1508,8 +1459,7 @@
             const totalSlides = slides.length;
             dotsContainer.innerHTML = '';
             for (let i = 0; i < totalSlides; i++) {
-                const dot = document.createElement('button');
-                dot.className = 'slider-dot';
+                const dot = document.createElement('button'); dot.className = 'slider-dot';
                 if (i === 0) dot.classList.add('active');
                 dot.addEventListener('click', () => goToSlide(i));
                 dotsContainer.appendChild(dot);
@@ -1530,8 +1480,7 @@
             let autoPlay = setInterval(() => goToSlide(currentIndex + 1), 5000);
             let touchStartX = 0;
             wrapper.addEventListener('touchstart', e => {
-                touchStartX = e.changedTouches[0].screenX;
-                clearInterval(autoPlay);
+                touchStartX = e.changedTouches[0].screenX; clearInterval(autoPlay);
             }, { passive: true });
             wrapper.addEventListener('touchend', e => {
                 const diff = touchStartX - e.changedTouches[0].screenX;
@@ -1540,10 +1489,7 @@
             }, { passive: true });
             const viewport = wrapper.parentElement;
             viewport.addEventListener('mouseenter', () => clearInterval(autoPlay));
-            viewport.addEventListener('mouseleave', () => {
-                clearInterval(autoPlay);
-                autoPlay = setInterval(() => goToSlide(currentIndex + 1), 5000);
-            });
+            viewport.addEventListener('mouseleave', () => { clearInterval(autoPlay); autoPlay = setInterval(() => goToSlide(currentIndex + 1), 5000); });
 
             // 技能条动画
             const skillObserver = new IntersectionObserver(entries => {
@@ -1555,12 +1501,11 @@
             }, { threshold: 0.3 });
             document.querySelectorAll('.skill-list').forEach(l => skillObserver.observe(l));
 
-            // 键盘快捷键
             document.addEventListener('keydown', e => {
                 if (e.key === 'm' && e.ctrlKey) { e.preventDefault(); bgmBtn.click(); }
             });
 
-            console.log('🌟 可爱小窝已就绪！');
+            console.log('🌟 已就绪！');
         })();
     </script>
 </body>
