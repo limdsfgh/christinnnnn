@@ -868,22 +868,15 @@
         }
 
         .float-btn.bgm-btn.playing {
-            background: #fde8c8;
-            animation: musicPulse 1.5s ease-in-out infinite;
-        }
+    background: #fde8c8;
+    animation: bgmJingle 0.6s ease-in-out infinite;
+}
 
-        @keyframes musicPulse {
-
-            0%,
-            100% {
-                box-shadow: 0 0 0 0 rgba(143, 129, 113, 0.4);
-            }
-
-            50% {
-                box-shadow: 0 0 0 16px rgba(143, 129, 113, 0);
-            }
-        }
-
+@keyframes bgmJingle {
+    0%, 100% { transform: scale(1) rotate(0deg); }
+    25% { transform: scale(1.1) rotate(-10deg); }
+    75% { transform: scale(1.1) rotate(10deg); }
+}
         .section-divider {
             width: 100%;
             max-width: 300px;
@@ -1043,8 +1036,24 @@
                 gap: 16px;
             }
 
+            .ip-info {
+                text-align: center;
+                /* 文字、标签等全部居中 */
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                /* 让内部的块级元素水平居中 */
+                min-width: unset;
+                /* 移除最小宽度限制 */
+                width: 100%;
+                /* 占满父容器 */
+            }
+
             .ip-tags {
                 justify-content: center;
+                /* 标签列表居中 */
+                width: auto;
+                /* 自然宽度，配合 flex 居中 */
             }
 
             .floating-buttons {
@@ -1187,7 +1196,7 @@
                 <div class="ip-info">
                     <div class="ip-name">菜猫 · CaiMiao🐾</div>
                     <div class="ip-role">
-                         <a href="https://instagram.com/caimiao_studio" target="_blank">@caimiao_studio</a>
+                        <a href="https://instagram.com/caimiao_studio" target="_blank">@caimiao_studio</a>
                     </div>
                     <div class="ip-tags">
                         <span class="ip-tag">☀️ 我不知道</span><span class="ip-tag">🎨 是</span><span class="ip-tag">🍰
@@ -1221,15 +1230,15 @@
                             <div class="slider-slide"><img
                                     src="https://placehold.co/600x800/fbeec/53442d?text=🍰+Baking" alt="烘焙"><span>🍰
                                     烘焙</span></div>
-                            <div class="slider-slide"><img
-                                    src="https://placehold.co/600x800/fbeec/53442d?text=🏋+Gym" alt="Gym"><span>🏋
+                            <div class="slider-slide"><img src="https://placehold.co/600x800/fbeec/53442d?text=🏋+Gym"
+                                    alt="Gym"><span>🏋
                                     做Gym</span></div>
                             <div class="slider-slide"><img src="https://placehold.co/600x800/fbeec/53442d?text=🐱+Cat"
                                     alt="撸猫"><span>🐱 撸猫</span></div>
                             <div class="slider-slide"><img
                                     src="https://placehold.co/600x800/fbeec/53442d?text=🎨+Painting" alt="绘画"><span>✈️
                                     绘画</span></div>
-                           <!-- <div class="slider-slide"><img
+                            <!-- <div class="slider-slide"><img
                                     src="https://placehold.co/600x800/fbeec/53442d?text=📸+Photography"
                                     alt="摄影"><span>📸 摄影</span></div>-->
                         </div>
@@ -1329,17 +1338,21 @@
                 if (e.target === popupOverlay) popupOverlay.classList.remove('show');
             });
 
-            // 滚动动画（核心修改：离开视口时移除visible，实现重复播放）
+            // 滚动动画（进入时显示，离开时隐藏，但消除抖动）
             const allSections = document.querySelectorAll('.section');
             const observer = new IntersectionObserver(entries => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('visible');
                     } else {
+                        // 只有当元素离开足够远时才移除（避免在阈值附近闪烁）
                         entry.target.classList.remove('visible');
                     }
                 });
-            }, { threshold: 0.12 });
+            }, {
+                threshold: 0.3,                     // 👈 元素露出30%才算进入
+                rootMargin: '0px 0px -10% 0px'      // 👈 底部再收缩5%，让判定更宽松
+            });
             allSections.forEach(s => observer.observe(s));
 
             // 初次加载时，位于视口内的元素直接显示（无延迟）
