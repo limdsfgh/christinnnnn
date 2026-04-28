@@ -569,7 +569,7 @@
         }
 
         .mbti-display {
-            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-size: clamp(1.8rem, 4.5vw, 2rem) !important ;
             font-weight: 900;
             letter-spacing: 0.1em;
             background: linear-gradient(135deg, #fff3dc, #fce4c0);
@@ -868,15 +868,26 @@
         }
 
         .float-btn.bgm-btn.playing {
-    background: #fde8c8;
-    animation: bgmJingle 0.6s ease-in-out infinite;
-}
+            background: #dbecf4;
+            animation: bgmJingle 1.2s ease-in-out infinite;
+        }
 
-@keyframes bgmJingle {
-    0%, 100% { transform: scale(1) rotate(0deg); }
-    25% { transform: scale(1.1) rotate(-10deg); }
-    75% { transform: scale(1.1) rotate(10deg); }
-}
+        @keyframes bgmJingle {
+
+            0%,
+            100% {
+                transform: scale(1) rotate(0deg);
+            }
+
+            25% {
+                transform: scale(1.05) rotate(-5deg);
+            }
+
+            75% {
+                transform: scale(1.05) rotate(5deg);
+            }
+        }
+
         .section-divider {
             width: 100%;
             max-width: 300px;
@@ -965,7 +976,7 @@
             border: none;
             padding: 10px 28px;
             border-radius: 50px;
-            font-size: 1rem;
+            font-size: 1.5rem;
             cursor: pointer;
             transition: var(--transition);
         }
